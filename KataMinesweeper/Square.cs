@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace KataMinesweeper
 {
@@ -21,9 +22,9 @@ namespace KataMinesweeper
             switch (MineStatus)
             {
                 case(MineStatus.False):
-                    //todo call method
+                    //todo call method to check neighbours? 
                     // return the method? 
-                    return " . ";
+                    return Board.GenerateHints() + " ";
                 case(MineStatus.True):
                     return " * ";
                 default:

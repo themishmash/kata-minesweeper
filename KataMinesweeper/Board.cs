@@ -7,7 +7,7 @@ namespace KataMinesweeper
 {
     public class Board
     {
-        public readonly int Size;
+        public static int Size;
         private static Square[,] _boardSquares;
 
 
@@ -34,7 +34,7 @@ namespace KataMinesweeper
         }
         
         //todo make this method generate random x and y coordinates according to the Size property of board
-        private void GenerateMines()
+        public void GenerateMines()
         {
             for (var i = 0; i < Size; i++)
             {
@@ -46,54 +46,36 @@ namespace KataMinesweeper
         //hardcode for 1 square
         public static string GenerateHints()
         {
-            var neighbourSquares = new List<Square>();
-            var hint = 0;
-            var square = _boardSquares[1, 1];
-            //get neighbours 
-            // var neighbour1 = _boardSquares[square.XCoordinate - 1, square.YCoordinate - 1];
-            // var neighbour2 = _boardSquares[square.XCoordinate - 1, square.YCoordinate];
-            // var neighbour3 = _boardSquares[square.XCoordinate - 1, square.YCoordinate + 1];
-
-            for (var i = 0; i < square.XCoordinate + 1; i++)
-            {
-                neighbourSquares.Add(_boardSquares[0, i]); 
-            }
             
+            var square = _boardSquares[0, 2];
             
-            // var neighbour4 = _boardSquares[square.XCoordinate, square.YCoordinate - 1];
-            // var neighbour5 = _boardSquares[square.XCoordinate, square.YCoordinate + 1];
-
-            for (var i = 0; i < square.XCoordinate || i > square.XCoordinate; i++)
-            {
-                neighbourSquares.Add(_boardSquares[1, i]);
-            }
-            // var neighbour6 = _boardSquares[square.XCoordinate + 1, square.YCoordinate -1];
-            // var neighbour7 = _boardSquares[square.XCoordinate + 1, square.YCoordinate];
-            // var neighbour8 = _boardSquares[square.XCoordinate + 1, square.YCoordinate + 1];
-
-            for (var i = 0; i < square.XCoordinate + 1; i++)
-            {
-                neighbourSquares.Add(_boardSquares[2, i]);
-            }
-
-            // neighbourSquares.Add(neighbour1);
-            // neighbourSquares.Add(neighbour2);
-            // neighbourSquares.Add(neighbour3);
-            // neighbourSquares.Add(neighbour4);
-            // neighbourSquares.Add(neighbour5);
-            // neighbourSquares.Add(neighbour6);
-            // neighbourSquares.Add(neighbour7);
-            // neighbourSquares.Add(neighbour8);
-
-            foreach (var item in neighbourSquares)
-            {
-                if (item.MineStatus == MineStatus.True)
+                var neighbourSquares = new List<Square>();
+                for (var i = square.XCoordinate-1; i <= square.XCoordinate + 1; i++)
                 {
-                    hint++;
-                }
-            }
+                    for (var j = square.YCoordinate-1; j <= square.YCoordinate + 1; j++)
+                    {
+                        //ignore square being checked
+                        if (i == square.XCoordinate && j == square.YCoordinate)
+                        {
+                            continue;
+                        }
 
-            return hint.ToString();
+                        //ignore if out of bounds
+                        if (i < 0 || i > Size || j < 0 || j > Size)
+                        {
+                            continue;
+                        }
+                      
+                        neighbourSquares.Add(_boardSquares[i, j]); 
+                    }
+                
+                }
+
+                var hint = neighbourSquares.Count(item => item.MineStatus == MineStatus.True);
+
+                return hint.ToString();
+                
+
         }
         
         

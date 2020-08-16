@@ -7,8 +7,8 @@ namespace KataMinesweeper
 {
     public class Board
     {
-        public static int Size;
-        private static Square[,] _boardSquares;
+        public int Size;
+        private Square[,] _boardSquares;
 
 
         public Board(int size)
@@ -16,7 +16,7 @@ namespace KataMinesweeper
             Size = size;
             CreateBoard();
             GenerateMines();
-            //GenerateHints();
+            GenerateHints();
         }
 
         
@@ -44,37 +44,70 @@ namespace KataMinesweeper
         }
         
         //hardcode for 1 square
-        public static string GenerateHints()
+        public void GenerateHints()
         {
             
-            var square = _boardSquares[0, 2];
-            
-                var neighbourSquares = new List<Square>();
-                for (var i = square.XCoordinate-1; i <= square.XCoordinate + 1; i++)
-                {
-                    for (var j = square.YCoordinate-1; j <= square.YCoordinate + 1; j++)
-                    {
-                        //ignore square being checked
-                        if (i == square.XCoordinate && j == square.YCoordinate)
-                        {
-                            continue;
-                        }
+           // var square = _boardSquares[1, 1];
 
-                        //ignore if out of bounds
-                        if (i < 0 || i > Size || j < 0 || j > Size)
+            foreach (var item in _boardSquares)
+            {
+                
+                    var square = _boardSquares[0,1];
+                    var neighbourSquares = new List<Square>();
+                    for (var i = square.XCoordinate-1; i <= square.XCoordinate + 1; i++)
+                    {
+                        for (var j = square.YCoordinate-1; j <= square.YCoordinate + 1; j++)
                         {
-                            continue;
-                        }
+                            //ignore square being checked
+                            if (i == square.XCoordinate && j == square.YCoordinate)
+                            {
+                                continue;
+                            }
+
+                            //ignore if out of bounds
+                            if (i < 0 || i > Size || j < 0 || j > Size)
+                            {
+                                continue;
+                            }
                       
-                        neighbourSquares.Add(_boardSquares[i, j]); 
+                            neighbourSquares.Add(_boardSquares[i, j]); 
+                        }
+                
+                    }
+                    var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+                    if (hint == 0 && square.MineStatus == MineStatus.False)
+                    {
+                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint0;
+                    }
+                    if (hint == 1 && square.MineStatus == MineStatus.False)
+                    {
+                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint1;
+                    }
+                    if (hint == 2 && square.MineStatus == MineStatus.False)
+                    {
+                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint2;
+                    }
+                    if (hint == 3 && square.MineStatus == MineStatus.False)
+                    {
+                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint3;
                     }
                 
-                }
-
-                var hint = neighbourSquares.Count(item => item.MineStatus == MineStatus.True);
-
-                return hint.ToString();
                 
+                
+                
+            }
+                
+               
+               
+            
+           
+                
+
+              
+                
+               //todo find the matching spot in boardsquares only - and do this tostring thing to
+               
+
 
         }
         

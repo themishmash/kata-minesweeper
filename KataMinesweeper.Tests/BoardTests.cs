@@ -14,7 +14,7 @@ namespace KataMinesweeper.Tests
         [Fact]
         public void Generate_Squares_In_Board_With_Mines()
         {
-            var board = new Board(4);
+           // var board = new Board(4);
            // Assert.Equal(" *  .  .  . \n *  .  .  . \n *  .  .  . \n *  .  .  . ",board.DisplayBoard());
         }
 

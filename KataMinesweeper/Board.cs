@@ -18,7 +18,8 @@ namespace KataMinesweeper
             GenerateMines();
             GenerateHints();
         }
-        
+
+
         private void CreateBoard()
         {
             _boardSquares = new Square[Size, Size];
@@ -50,43 +51,54 @@ namespace KataMinesweeper
             foreach (var square in _boardSquares)
             {
                 var neighbourSquares = new List<Square>();
-                   
-                    for (var i = square.XCoordinate-1; i <= square.XCoordinate + 1; i++)
+                GetNeighbouringSquares(square, neighbourSquares);
+                var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+                GetMineStatus(hint, square);
+            }
+        }
+        
+        private void GetNeighbouringSquares(Square square, List<Square> neighbourSquares)
+        {
+            for (var xCoordinate = square.XCoordinate - 1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
+            {
+                for (var yCoordinate = square.YCoordinate - 1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
+                {
+                    if (IsCurrentSquare(square, xCoordinate, yCoordinate) || IsNotNeighbour(xCoordinate, yCoordinate))
                     {
-                        for (var j = square.YCoordinate-1; j <= square.YCoordinate + 1; j++)
-                        {
-                            //ignore square being checked
-                            if (i == square.XCoordinate && j == square.YCoordinate)
-                            {
-                                continue;
-                            }
+                        continue;
+                    }
 
-                            //ignore if out of bounds
-                            //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
-                            if (i < 0 || i > 3 || j < 0 || j > 3)
-                            {
-                                continue;
-                            }
-                      
-                            neighbourSquares.Add(_boardSquares[i, j]); 
-                        }
-                    }
-                    var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
-                    switch (hint)
-                    {
-                        case 0 when square.MineStatus == MineStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint0;
-                            break;
-                        case 1 when square.MineStatus == MineStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint1;
-                            break;
-                        case 2 when square.MineStatus == MineStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint2;
-                            break;
-                        case 3 when square.MineStatus == MineStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint3;
-                            break;
-                    }
+                    neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]);
+                }
+            }
+        }
+
+        private static bool IsCurrentSquare(Square square, int xCoordinate, int yCoordinate)
+        {
+            return xCoordinate == square.XCoordinate && yCoordinate == square.YCoordinate;
+        }
+        
+        private static bool IsNotNeighbour(int xCoordinate, int yCoordinate)
+        {
+            return xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3;
+        }
+        
+        private void GetMineStatus(int hint, Square square)
+        {
+            switch (hint)
+            {
+                case 0 when square.MineStatus == MineStatus.False:
+                    _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint0;
+                    break;
+                case 1 when square.MineStatus == MineStatus.False:
+                    _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint1;
+                    break;
+                case 2 when square.MineStatus == MineStatus.False:
+                    _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint2;
+                    break;
+                case 3 when square.MineStatus == MineStatus.False:
+                    _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint3;
+                    break;
             }
         }
 
@@ -99,6 +111,11 @@ namespace KataMinesweeper
         public IEnumerable<Square> GetMines()
         {
             return _boardSquares.Cast<Square>().Where(square => square.MineStatus == MineStatus.True).ToList();
+        }
+
+        public MineStatus GetMineStatus(int xCoordinate, int yCoordinate)
+        {
+            return _boardSquares[xCoordinate, yCoordinate].MineStatus;
         }
         
         public string DisplayBoard()

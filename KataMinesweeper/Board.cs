@@ -18,9 +18,7 @@ namespace KataMinesweeper
             GenerateMines();
             GenerateHints();
         }
-
         
-
         private void CreateBoard()
         {
             _boardSquares = new Square[Size, Size];
@@ -34,7 +32,8 @@ namespace KataMinesweeper
         }
         
         //todo make this method generate random x and y coordinates according to the Size property of board
-        public void GenerateMines()
+        //todo make Mine class?
+        private void GenerateMines()
         {
             for (var i = 0; i < Size; i++)
             {
@@ -43,17 +42,15 @@ namespace KataMinesweeper
             }
         }
         
-        //hardcode for 1 square
-        public void GenerateHints()
+        
+        //todo make Hint class?
+        //todo refactor this method
+        private void GenerateHints()
         {
-            
-           // var square = _boardSquares[1, 1];
-
-            foreach (var item in _boardSquares)
+            foreach (var square in _boardSquares)
             {
-                
-                    var square = _boardSquares[0,1];
-                    var neighbourSquares = new List<Square>();
+                var neighbourSquares = new List<Square>();
+                   
                     for (var i = square.XCoordinate-1; i <= square.XCoordinate + 1; i++)
                     {
                         for (var j = square.YCoordinate-1; j <= square.YCoordinate + 1; j++)
@@ -65,53 +62,34 @@ namespace KataMinesweeper
                             }
 
                             //ignore if out of bounds
-                            if (i < 0 || i > Size || j < 0 || j > Size)
+                            //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
+                            if (i < 0 || i > 3 || j < 0 || j > 3)
                             {
                                 continue;
                             }
                       
                             neighbourSquares.Add(_boardSquares[i, j]); 
                         }
-                
                     }
                     var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
-                    if (hint == 0 && square.MineStatus == MineStatus.False)
+                    switch (hint)
                     {
-                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint0;
+                        case 0 when square.MineStatus == MineStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint0;
+                            break;
+                        case 1 when square.MineStatus == MineStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint1;
+                            break;
+                        case 2 when square.MineStatus == MineStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint2;
+                            break;
+                        case 3 when square.MineStatus == MineStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint3;
+                            break;
                     }
-                    if (hint == 1 && square.MineStatus == MineStatus.False)
-                    {
-                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint1;
-                    }
-                    if (hint == 2 && square.MineStatus == MineStatus.False)
-                    {
-                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint2;
-                    }
-                    if (hint == 3 && square.MineStatus == MineStatus.False)
-                    {
-                        _boardSquares[square.XCoordinate, square.YCoordinate].MineStatus = MineStatus.Hint3;
-                    }
-                
-                
-                
-                
             }
-                
-               
-               
-            
-           
-                
-
-              
-                
-               //todo find the matching spot in boardsquares only - and do this tostring thing to
-               
-
-
         }
-        
-        
+
 
         public int CountMines()
         {

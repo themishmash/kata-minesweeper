@@ -4,18 +4,11 @@ namespace KataMinesweeper.Tests
 {
     public class BoardTests
     {
-        // [Fact]
-        // public void Generate_Squares_In_Board_With_Correct_Difficulty_No_Mines()
-        // {
-        //     var board = new Board(4);
-        //     Assert.Equal(" .  .  .  . \n .  .  .  . \n .  .  .  . \n .  .  .  . ",board.DisplayBoard());
-        // }
-
         [Fact]
-        public void Generate_Squares_In_Board_With_Mines()
+        public void Generate_4x4_Board_With_4_Mines()
         {
-           // var board = new Board(4);
-           // Assert.Equal(" *  .  .  . \n *  .  .  . \n *  .  .  . \n *  .  .  . ",board.DisplayBoard());
+           var board = new Board(4);
+           Assert.Equal(4, board.CountMines());
         }
 
         [Fact]

@@ -7,7 +7,7 @@ namespace KataMinesweeper.Tests
     {
         [Fact]
         
-        public void Making_A_Move_Will_Update_Board()
+        public void Making_A_Move_Will_Reveal_Mines()
         {
             var board = new Board(4);
             var player = new Player();
@@ -15,11 +15,13 @@ namespace KataMinesweeper.Tests
             var minesweeper = new Minesweeper(board, player);
             minesweeper.PlayGame();
 
-            Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);
+            //Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);
             Assert.Equal(4, board.CountMines());
             // Assert.Equal(1, move.XCoordinate);
             // Assert.Equal(1, move.YCoordinate);
-            //Assert.Equal(" . .  .  . \n .  .  . . \n .  .  . . ", board.DisplayBoard());
+            Assert.Equal(GameStatus.Lost, minesweeper.GameStatus);
+            Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 ",board.DisplayBoard());
+           
         }
         
     }

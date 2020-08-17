@@ -24,8 +24,6 @@ namespace KataMinesweeper
                 case(MineStatus.Hint0):
                     return " 0 ";
                 case(MineStatus.Hint1):
-                    //todo call method to check neighbours? 
-                    // return the method? 
                     return " 1 ";
                 case(MineStatus.Hint2):
                     return " 2 ";

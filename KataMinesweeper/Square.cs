@@ -8,42 +8,47 @@ namespace KataMinesweeper
         public int XCoordinate { get; }
         public int YCoordinate { get; }
 
-        public MineStatus MineStatus;
+        public SquareStatus SquareStatus;
 
-        public Square(int xCoordinate, int yCoordinate, MineStatus mineStatus = MineStatus.False)
+        public Square(int xCoordinate, int yCoordinate, SquareStatus squareStatus = SquareStatus.False)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
-            MineStatus = mineStatus;
+            SquareStatus = squareStatus;
         }
 
+        
+        //todo this will need to change - call a method that returns a string dependent on hint number perhaps? 
         public override string ToString()
         {
-            switch (MineStatus)
+            switch (SquareStatus)
             {
-                case(MineStatus.Hint0):
-                    return " 0 ";
-                case(MineStatus.Hint1):
-                    return " 1 ";
-                case(MineStatus.Hint2):
-                    return " 2 ";
-                case(MineStatus.Hint3):
-                    return " 3 ";
-                case(MineStatus.Hint4):
-                    return " 4 ";
-                case(MineStatus.Hint5):
-                    return " 5 ";
-                case(MineStatus.Hint6):
-                    return " 6 ";
-                case(MineStatus.Hint7):
-                    return " 7 ";
-                case(MineStatus.Hint8):
-                    return " 8 ";
-                case(MineStatus.True):
+                // case(SquareStatus.Hint0):
+                //     return " 0 ";
+                // case(SquareStatus.Hint1):
+                //     return " 1 ";
+                // case(SquareStatus.Hint2):
+                //     return " 2 ";
+                // case(SquareStatus.Hint3):
+                //     return " 3 ";
+                // case(SquareStatus.Hint4):
+                //     return " 4 ";
+                // case(SquareStatus.Hint5):
+                //     return " 5 ";
+                // case(SquareStatus.Hint6):
+                //     return " 6 ";
+                // case(SquareStatus.Hint7):
+                //     return " 7 ";
+                // case(SquareStatus.Hint8):
+                //     return " 8 ";
+                case(SquareStatus.True):
                     return " * ";
                 default:
                     return " . ";
             }
+            
         }
+
+        
     }
 }

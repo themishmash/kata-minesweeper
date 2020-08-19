@@ -23,14 +23,14 @@ namespace KataMinesweeper
         {
             switch (SquareStatus)
             {
-                // case(SquareStatus.Hint0):
-                //     return " 0 ";
-                // case(SquareStatus.Hint1):
-                //     return " 1 ";
-                // case(SquareStatus.Hint2):
-                //     return " 2 ";
-                // case(SquareStatus.Hint3):
-                //     return " 3 ";
+                case(SquareStatus.Hint0):
+                    return " 0 ";
+                case(SquareStatus.Hint1):
+                    return " 1 ";
+                case(SquareStatus.Hint2):
+                    return " 2 ";
+                case(SquareStatus.Hint3):
+                    return " 3 ";
                 // case(SquareStatus.Hint4):
                 //     return " 4 ";
                 // case(SquareStatus.Hint5):

@@ -65,26 +65,25 @@ namespace KataMinesweeper
                             {
                                 continue;
                             }
-                      
                             neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
                         }
                     }
                     var hint = neighbourSquares.Count(x => x.SquareStatus == SquareStatus.True);
-                    // switch (hint)
-                    // {
-                    //     case 0 when square.SquareStatus == SquareStatus.False:
-                    //         _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint0;
-                    //         break;
-                    //     case 1 when square.SquareStatus == SquareStatus.False:
-                    //         _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint1;
-                    //         break;
-                    //     case 2 when square.SquareStatus == SquareStatus.False:
-                    //         _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint2;
-                    //         break;
-                    //     case 3 when square.SquareStatus == SquareStatus.False:
-                    //         _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint3;
-                    //         break;
-                    // }
+                    switch (hint)
+                    {
+                        case 0 when square.SquareStatus == SquareStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint0;
+                            break;
+                        case 1 when square.SquareStatus == SquareStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint1;
+                            break;
+                        case 2 when square.SquareStatus == SquareStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint2;
+                            break;
+                        case 3 when square.SquareStatus == SquareStatus.False:
+                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint3;
+                            break;
+                    }
             }
         }
 

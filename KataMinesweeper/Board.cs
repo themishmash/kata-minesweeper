@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace KataMinesweeper
 {
     public class Board
     {
         public int Size;
-        private static Square[,] _boardSquares;
-
+        private Square[,] _boardSquares; //real board
+        private Square[,] _moveSquares; // state of the game
+        
+        //dictionary - instantiate in this class
 
         public Board(int size)
         {
@@ -17,19 +18,25 @@ namespace KataMinesweeper
             CreateBoard();
             GenerateMines();
             GenerateHints();
+
         }
         
         private void CreateBoard()
         {
             _boardSquares = new Square[Size, Size];
+            _moveSquares = new Square[Size,Size];
             for (var x = 0; x < Size; x++)
             {
                 for (var y = 0; y < Size; y++)
                 {
                     _boardSquares[x,y] = new Square(x,y);
+                    _moveSquares[x,y] = new Square(x,y);
                 }
             }
         }
+        
+        
+        
         
         //todo make this method generate random x and y coordinates according to the Size property of board
         private void GenerateMines()
@@ -37,13 +44,13 @@ namespace KataMinesweeper
             for (var i = 0; i < Size; i++)
             {
                 var mine = new Square(i, 0);
-                _boardSquares[mine.XCoordinate, mine.YCoordinate].SquareStatus = SquareStatus.True;
+                _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
+                _boardSquares[mine.XCoordinate, mine.YCoordinate].Value = " * ";
             }
         }
         
-        //hardcode for 1 square
         //todo this will need to be moved - maybe to move class? and need to be refactored too!! majorly. 
-        private void GenerateHints()
+        public void GenerateHints()
         {
             foreach (var square in _boardSquares)
             {
@@ -58,7 +65,6 @@ namespace KataMinesweeper
                             {
                                 continue;
                             }
-        
                             //ignore if out of bounds
                             //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
                             if (xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3)
@@ -68,75 +74,66 @@ namespace KataMinesweeper
                             neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
                         }
                     }
-                    var hint = neighbourSquares.Count(x => x.SquareStatus == SquareStatus.True);
-                    switch (hint)
+                    var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+
+                    if (square.MineStatus == MineStatus.False)
                     {
-                        case 0 when square.SquareStatus == SquareStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint0;
-                            break;
-                        case 1 when square.SquareStatus == SquareStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint1;
-                            break;
-                        case 2 when square.SquareStatus == SquareStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint2;
-                            break;
-                        case 3 when square.SquareStatus == SquareStatus.False:
-                            _boardSquares[square.XCoordinate, square.YCoordinate].SquareStatus = SquareStatus.Hint3;
-                            break;
+                        _boardSquares[square.XCoordinate, square.YCoordinate].Value = hint + " ";
                     }
             }
         }
-
-         
-
-         private static bool IsValid(int xCoordinate, int yCoordinate)
-        {
-            return xCoordinate >= 0 && xCoordinate < 3 && yCoordinate >= 0 && yCoordinate < 3;
-        }
-
-         private static bool NotCurrentSquare(int xCoordinate, int yCoordinate, Square square)
-         {
-             return xCoordinate != square.XCoordinate || yCoordinate != square.YCoordinate;
-         }
-
-         private static bool IsMine(int xCoordinate, int yCoordinate)
-         {
-             //return square.SquareStatus == SquareStatus.True;
-             return _boardSquares[xCoordinate, yCoordinate].SquareStatus == SquareStatus.True;
-         }
+        
+        
 
         public int CountMines()
         {
-            return _boardSquares.Cast<Square>().Count(square => square.SquareStatus == SquareStatus.True);
+            return _boardSquares.Cast<Square>().Count(square => square.MineStatus == MineStatus.True);
         }
 
-        public IEnumerable<Square> GetMines()
-        {
-            return _boardSquares.Cast<Square>().Where(square => square.SquareStatus == SquareStatus.True).ToList();
-        }
+        // public IEnumerable<Square> GetMines()
+        // {
+        //     return _boardSquares.Cast<Square>().Where(square => square.SquareStatus == SquareStatus.True).ToList();
+        // }
 
-        public SquareStatus GetSquare(int xCoordinate, int YCoordinate)
+        public Square GetSquare(int xCoordinate, int YCoordinate)
         {
-            return _boardSquares[xCoordinate, YCoordinate].SquareStatus;
+            return _boardSquares[xCoordinate, YCoordinate];
         }
 
         
-        
+      
+
         public string DisplayBoard()
         {
             var board = "";
-            var rows = new string[Size];
-            for (var currentRow = 0; currentRow < Size; currentRow++)
+            for (var i = 0; i < Size; i++)
             {
-                var columns = new string[Size];
-                for (var currentCol = 0; currentCol < Size; currentCol++)
+                for (var j = 0; j < Size; j++)
                 {
-                    columns[currentCol] = _boardSquares[currentRow, currentCol].ToString();
+                    board += _boardSquares[i, j].Value + " ";
                 }
-                rows[currentRow] = string.Join("", columns);
+                board += Environment.NewLine;
             }
-            board += string.Join("\n", rows);
             return board;
         }
+
+       
+        
+        //this needs to move?
+        public string DisplayBoardForPlayer()
+        {
+            var board = "";
+            for (var i = 0; i < Size; i++)
+            {
+                for (var j = 0; j < Size; j++)
+                {
+                    board += " . "; //this needs to be square.value? 
+                }
+                board += " " + Environment.NewLine;
+            }
+            return board;
+        }
+        
+        
     }
 }

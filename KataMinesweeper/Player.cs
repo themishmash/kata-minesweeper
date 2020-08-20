@@ -2,9 +2,9 @@ namespace KataMinesweeper
 {
     public class Player
     {
-        public Move MakeMove(int i, int i1)
+        public Move MakeMove(int xCoordinate, int yCoordinate)
         {
-            return new Move();
+            return new Move(xCoordinate, yCoordinate);
         }
     }
 }

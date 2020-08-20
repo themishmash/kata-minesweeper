@@ -10,8 +10,8 @@ namespace KataMinesweeper.Tests
         public void Making_A_Move_Will_Reveal_Mines()
         {
             var board = new Board(4);
-            // var player = new Player();
-            // player.MakeMove(1, 1);
+            var player = new Player();
+            player.MakeMove(1, 1);
             // var minesweeper = new Minesweeper(board, player);
             // minesweeper.PlayGame();
 

@@ -6,6 +6,7 @@ namespace KataMinesweeper
         private readonly Player _player;
        
         public GameStatus GameStatus { get; set; }
+        
 
         public Minesweeper(Board board, Player player)
         {
@@ -19,5 +20,7 @@ namespace KataMinesweeper
         {
             _board.DisplayBoard();
         }
+        
+        
     }
 }

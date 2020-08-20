@@ -14,6 +14,9 @@ namespace KataMinesweeper
             // minesweeper.PlayGame();
             
             Console.WriteLine(board.DisplayBoard());
+           
+           
+           Console.WriteLine(board.DisplayBoardForPlayer());
             
         }
     }

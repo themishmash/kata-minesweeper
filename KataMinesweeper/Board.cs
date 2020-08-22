@@ -8,21 +8,13 @@ namespace KataMinesweeper
     {
         public int Size;
         private Square[,] _boardSquares; //real board
-        
-        
-        //list of player moves
-        //checks if there is a match with the _boardSquares 
-        
-        // (0,0) -> stored in a list of playerMoves
-        // find matching move with _boardsquare x and y coordinates
-        // if matching = true, then .value = " * " or "hint" 
-        
+
         public Board(int size)
         {
             Size = size;
             CreateBoard();
             GenerateMines();
-            GetHints();
+            GenerateHints();
         }
         
         private void CreateBoard()
@@ -45,17 +37,11 @@ namespace KataMinesweeper
             {
                 var mine = new Square(i, 0);
                 _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
-                
-              //_boardSquares[mine.XCoordinate, mine.YCoordinate].Value = " * ";
+                //_boardSquares[mine.XCoordinate, mine.YCoordinate].Value = " * ";
             }
         }
-        
-        
-        
 
-        
-
-        public void GetHints()
+        private void GenerateHints()
         {
             foreach (var square in _boardSquares)
             {
@@ -79,7 +65,7 @@ namespace KataMinesweeper
                         neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
                     }
                 }
-                var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+                // var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
 
                 // if (square.MineStatus == MineStatus.False)
                 // {
@@ -168,7 +154,7 @@ namespace KataMinesweeper
             return _boardSquares.Cast<Square>().Count(square => square.MineStatus == MineStatus.True);
         }
 
-        public IEnumerable<Square> GetMines()
+        private IEnumerable<Square> GetMines()
         {
             return _boardSquares.Cast<Square>().Where(square => square.MineStatus == MineStatus.True).ToList();
         }

@@ -25,13 +25,14 @@ namespace KataMinesweeper
             //     }
             // }
 
-            // var coordinate = new Coordinate(1,1);
-            // board.GenerateHintForSingleSquare(coordinate);
+            var coordinate = new Coordinate(1,1);
+            board.GenerateHintForSingleSquare(coordinate);
+            Console.WriteLine(board.DisplayBoard());
             // var coordinate2 = new Coordinate(1,3);
             // board.GenerateHintForSingleSquare(coordinate2);
             
-            var coordinate = new Coordinate(1,0);
-            board.GenerateHintForSingleSquare(coordinate);
+            var coordinate1 = new Coordinate(1,0);
+            board.GenerateHintForSingleSquare(coordinate1);
             board.DisplayBoard();
             
            Console.WriteLine(board.DisplayBoard());

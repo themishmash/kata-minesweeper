@@ -11,7 +11,7 @@ namespace KataMinesweeper.Tests
             var player = new Player();
             player.MakeMove(1, 1);
             
-            var move = new Move(1,1);
+            var move = new Coordinate(1,1);
             
            // Assert.Equal(" .  2  .  .  \n .  .  .  .  \n .  .  .  .  \n .  .  .  .  \n", move.DisplayBoardForPlayer());
         }

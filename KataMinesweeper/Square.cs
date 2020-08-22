@@ -7,21 +7,20 @@ namespace KataMinesweeper
     {
         public int XCoordinate { get; }
         public int YCoordinate { get; }
-        
         public string Value { get; set; }
-        
-        //dictionary
-
         public MineStatus MineStatus { get; set; }
+        public bool IsRevealed { get; set; }
+        
 
         public Square(int xCoordinate, int yCoordinate)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
-            Value = ".";
-            //dictionary - key: square value: mine/hint//property of square but instantiated 
-            
+            Value = " . ";
+            //do i need reveal? maybe value is reveal
+            //maybe need hint status with int property? hmmmm
             MineStatus = MineStatus.False;
+            IsRevealed = false;
         }
         
        

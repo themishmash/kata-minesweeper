@@ -16,10 +16,10 @@ namespace KataMinesweeper
 
         }
 
-        public void PlayGame()
-        {
-            _board.DisplayBoard();
-        }
+        // public void PlayGame()
+        // {
+        //     _board.DisplayBoard();
+        // }
         
         
     }

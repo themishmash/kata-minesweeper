@@ -44,7 +44,7 @@
         <Compile Include="Mine.cs" />
         <Compile Include="MineStatus.cs" />
         <Compile Include="Minesweeper.cs" />
-        <Compile Include="Move.cs" />
+        <Compile Include="Coordinate.cs" />
         <Compile Include="Player.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

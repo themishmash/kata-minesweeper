@@ -7,14 +7,14 @@ namespace KataMinesweeper
     public class Board
     {
         public int Size;
-        private Square[,] _boardSquares; //real board
+        private Square[,] _boardSquares; 
 
         public Board(int size)
         {
             Size = size;
             CreateBoard();
             GenerateMines();
-            GenerateHints();
+           // GenerateHints();
         }
         
         private void CreateBoard()
@@ -37,132 +37,12 @@ namespace KataMinesweeper
             {
                 var mine = new Square(i, 0);
                 _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
-                //_boardSquares[mine.XCoordinate, mine.YCoordinate].Value = " * ";
             }
-        }
-
-        private void GenerateHints()
-        {
-            foreach (var square in _boardSquares)
-            {
-                var neighbourSquares = new List<Square>();
-                   
-                for (var xCoordinate = square.XCoordinate-1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
-                {
-                    for (var yCoordinate = square.YCoordinate-1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
-                    {
-                        //ignore square being checked
-                        if (xCoordinate == square.XCoordinate && yCoordinate == square.YCoordinate)
-                        {
-                            continue;
-                        }
-                        //ignore if out of bounds
-                        //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
-                        if (xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3)
-                        {
-                            continue;
-                        }
-                        neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
-                    }
-                }
-                // var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
-
-                // if (square.MineStatus == MineStatus.False)
-                // {
-                //     _boardSquares[square.XCoordinate, square.YCoordinate].Value = hint + " ";
-                // }
-            }
-        }
-        
-        public void GetHintsForEndGame()
-        {
-            foreach (var square in _boardSquares)
-            {
-                var neighbourSquares = new List<Square>();
-                   
-                for (var xCoordinate = square.XCoordinate-1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
-                {
-                    for (var yCoordinate = square.YCoordinate-1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
-                    {
-                        //ignore square being checked
-                        if (xCoordinate == square.XCoordinate && yCoordinate == square.YCoordinate)
-                        {
-                            continue;
-                        }
-                        //ignore if out of bounds
-                        //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
-                        if (xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3)
-                        {
-                            continue;
-                        }
-                        neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
-                    }
-                }
-                var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
-
-                if (square.MineStatus == MineStatus.False)
-                {
-                    _boardSquares[square.XCoordinate, square.YCoordinate].Value = " " + hint + " ";
-                }
-            }
-        }
-
-        public string GenerateHintForSingleSquare(Coordinate coordinate)
-        {
-            var square = GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
-            var neighbourSquares = new List<Square>();
-
-            for (var xCoordinate = square.XCoordinate-1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
-            {
-                for (var yCoordinate = square.YCoordinate-1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
-                {
-                    //ignore square being checked
-                    if (xCoordinate == square.XCoordinate && yCoordinate == square.YCoordinate)
-                    {
-                        continue;
-                    }
-                    //ignore if out of bounds
-                    //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
-                    if (xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3)
-                    {
-                        continue;
-                    }
-                    neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]); 
-                }
-            }
-            var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
-
-            if (square.MineStatus == MineStatus.False)
-            {
-                return _boardSquares[square.XCoordinate, square.YCoordinate].Value = " " + hint + " ";
-            }
-
-            if (square.MineStatus == MineStatus.True)
-            {
-                foreach (var mine in GetMines())
-                {
-                    mine.Value = " * ";
-                }
-                GetHintsForEndGame();
-            }
-
-            return "";
         }
         
         public int CountMines()
         {
             return _boardSquares.Cast<Square>().Count(square => square.MineStatus == MineStatus.True);
-        }
-
-        private IEnumerable<Square> GetMines()
-        {
-            return _boardSquares.Cast<Square>().Where(square => square.MineStatus == MineStatus.True).ToList();
-        }
-        
-
-        public Square GetSquare(int xCoordinate, int YCoordinate)
-        {
-            return _boardSquares[xCoordinate, YCoordinate];
         }
         
         public string DisplayBoard()
@@ -179,7 +59,79 @@ namespace KataMinesweeper
             return board;
         }
         
-       
+        public void GetHintForPlayerMove(Coordinate coordinate)
+        {
+            var square = GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
+            var neighbourSquares = new List<Square>();
+
+            GetNeighbourSquares(square, neighbourSquares);
+            
+            var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+
+            if (square.MineStatus == MineStatus.False)
+            {
+                _boardSquares[square.XCoordinate, square.YCoordinate].Value = " " + hint + " ";
+                _boardSquares[square.XCoordinate, square.YCoordinate].IsRevealed = true;
+            }
+
+            if (square.MineStatus == MineStatus.True)
+            {
+                foreach (var mine in GetMines())
+                {
+                    mine.Value = " * ";
+                }
+                RevealAllHints();
+            }
+        }
+
+        private void RevealAllHints()
+        {
+            foreach (var square in _boardSquares)
+            {
+                var neighbourSquares = new List<Square>();
+                GetNeighbourSquares(square, neighbourSquares);
+                var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+
+                if (square.MineStatus == MineStatus.False)
+                {
+                    _boardSquares[square.XCoordinate, square.YCoordinate].Value = " " + hint + " ";
+                }
+            }
+        }
+
+        private void GetNeighbourSquares(Square square, List<Square> neighbourSquares)
+        {
+            for (var xCoordinate = square.XCoordinate - 1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
+            {
+                for (var yCoordinate = square.YCoordinate - 1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
+                {
+                    //ignore square being checked
+                    if (xCoordinate == square.XCoordinate && yCoordinate == square.YCoordinate)
+                    {
+                        continue;
+                    }
+
+                    //ignore if out of bounds
+                    //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
+                    if (xCoordinate < 0 || xCoordinate > 3 || yCoordinate < 0 || yCoordinate > 3)
+                    {
+                        continue;
+                    }
+
+                    neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]);
+                }
+            }
+        }
+
+        private IEnumerable<Square> GetMines()
+        {
+            return _boardSquares.Cast<Square>().Where(square => square.MineStatus == MineStatus.True).ToList();
+        }
         
+        public Square GetSquare(int xCoordinate, int YCoordinate)
+        {
+            return _boardSquares[xCoordinate, YCoordinate];
+        }
+
     }
 }

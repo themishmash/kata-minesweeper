@@ -1,6 +1,6 @@
 namespace KataMinesweeper
 {
-    public class Hint
+    public class IInputOutput
     {
         
     }

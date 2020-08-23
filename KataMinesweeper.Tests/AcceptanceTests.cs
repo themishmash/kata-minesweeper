@@ -11,12 +11,12 @@ namespace KataMinesweeper.Tests
         {
             var board = new Board(4);
             var player = new Player();
-            player.MakeMove(1, 1);
+            player.PlayTurn(1, 1);
             // var minesweeper = new Minesweeper(board, player);
             // minesweeper.PlayGame();
 
             
-            //Assert.Equal(4, board.CountMines());
+            Assert.Equal(4, board.CountMines());
             // Assert.Equal(1, move.XCoordinate);
             // Assert.Equal(1, move.YCoordinate);
             //Assert.Equal(GameStatus.Lost, minesweeper.GameStatus);

@@ -40,8 +40,7 @@
     <ItemGroup>
         <Compile Include="Board.cs" />
         <Compile Include="GameStatus.cs" />
-        <Compile Include="Hint.cs" />
-        <Compile Include="Mine.cs" />
+        <Compile Include="IInputOutput.cs" />
         <Compile Include="MineStatus.cs" />
         <Compile Include="Minesweeper.cs" />
         <Compile Include="Coordinate.cs" />

@@ -17,8 +17,6 @@ namespace KataMinesweeper
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
             Value = " . ";
-            //do i need reveal? maybe value is reveal
-            //maybe need hint status with int property? hmmmm
             MineStatus = MineStatus.False;
             IsRevealed = false;
         }

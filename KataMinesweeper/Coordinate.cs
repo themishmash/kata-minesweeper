@@ -9,7 +9,6 @@ namespace KataMinesweeper
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
-            
         }
         
         

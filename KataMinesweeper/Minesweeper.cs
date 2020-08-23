@@ -4,22 +4,30 @@ namespace KataMinesweeper
     {
         private readonly Board _board;
         private readonly Player _player;
-       
+
         public GameStatus GameStatus { get; set; }
         
 
-        public Minesweeper(Board board, Player player)
+        public Minesweeper(Board board)
         {
             _board = board;
-            _player = player;
+            //_player = player;
+            
             GameStatus = GameStatus.Playing;
+            GenerateMines();
 
         }
 
-        // public void PlayGame()
-        // {
-        //     _board.DisplayBoard();
-        // }
+        private void GenerateMines()
+        {
+            //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. 
+            for (var i = 0; i < _board.Size; i++)
+            {
+                var mine = new Square(i, 0);
+                var square = _board.GetSquare(mine.XCoordinate, mine.YCoordinate);
+               square.MineStatus = MineStatus.True;
+            }
+        }
         
         
     }

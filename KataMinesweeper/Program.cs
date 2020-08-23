@@ -7,7 +7,7 @@ namespace KataMinesweeper
         public static void Main(string[] args)
         {
             var board = new Board(4);
-           // var player = new Player();
+           var minesweeper = new Minesweeper(board);
             //var mine = new Mine(board);
             // var minesweeper = new Minesweeper(board, player);
             //

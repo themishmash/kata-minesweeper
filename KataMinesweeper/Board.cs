@@ -13,8 +13,7 @@ namespace KataMinesweeper
         {
             Size = size;
             CreateBoard();
-            GenerateMines();
-           // GenerateHints();
+            //GenerateMines();
         }
         
         private void CreateBoard()
@@ -31,14 +30,14 @@ namespace KataMinesweeper
         }
         
         //todo make this method generate random x and y coordinates according to the Size property of board
-        private void GenerateMines()
-        {
-            for (var i = 0; i < Size; i++)
-            {
-                var mine = new Square(i, 0);
-                _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
-            }
-        }
+        // private void GenerateMines()
+        // {
+        //     for (var i = 0; i < Size; i++)
+        //     {
+        //         var mine = new Square(i, 0);
+        //         _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
+        //     }
+        // }
         
         public int CountMines()
         {

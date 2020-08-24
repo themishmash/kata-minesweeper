@@ -16,7 +16,8 @@ namespace KataMinesweeper.Tests
         public void Generate_4x4_Board_With_4_Mines()
         {
            var board = new Board(4);
-           var minesweeper = new Minesweeper(board);
+           
+          // var minesweeper = new Minesweeper(board);
           
            Assert.Equal(4, board.CountMines());
         }
@@ -25,7 +26,7 @@ namespace KataMinesweeper.Tests
         public void Change_Square_To_Hint_For_Single_Coordinate()
         {
             var board = new Board(4);
-            var minesweeper = new Minesweeper(board);
+           // var minesweeper = new Minesweeper(board);
             var coordinate = new Coordinate(1,1);
            board.GetHintForPlayerMove(coordinate);
            
@@ -36,11 +37,12 @@ namespace KataMinesweeper.Tests
         public void Reveal_Entire_Board_When_Mine_Chosen()
         {
             var board = new Board(4);
-            var minesweeper = new Minesweeper(board);
+          //  var minesweeper = new Minesweeper(board);
             var coordinate = new Coordinate(1,0);
             board.GetHintForPlayerMove(coordinate);
             
             Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 \n", board.DisplayBoard());
         }
+        
     }
 }

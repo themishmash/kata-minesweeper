@@ -8,14 +8,12 @@ namespace KataMinesweeper
     {
         public int Size;
         private Square[,] _boardSquares;
-
         
-
         public Board(int size)
         {
             Size = size;
             CreateBoard();
-            //GenerateMines();
+            GenerateMines();
         }
         
         private void CreateBoard()
@@ -30,16 +28,17 @@ namespace KataMinesweeper
             }
         }
         
-        //todo make this method generate random x and y coordinates according to the Size property of board
-        // private void GenerateMines()
-        // {
-        //     for (var i = 0; i < Size; i++)
-        //     {
-        //         var mine = new Square(i, 0);
-        //         _boardSquares[mine.XCoordinate, mine.YCoordinate].MineStatus = MineStatus.True;
-        //     }
-        // }
-        
+        private void GenerateMines()
+        {
+            //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. 
+            for (var i = 0; i < Size; i++)
+            {
+                var mine = new Square(i, 0);
+                var square = GetSquare(mine.XCoordinate, mine.YCoordinate);
+                square.MineStatus = MineStatus.True;
+            }
+        }
+
         public int CountMines()
         {
             return _boardSquares.Cast<Square>().Count(square => square.MineStatus == MineStatus.True);
@@ -133,5 +132,10 @@ namespace KataMinesweeper
             return _boardSquares[xCoordinate, yCoordinate];
         }
 
+        public bool IsSquareBlank(Coordinate coordinate)
+        {
+            return _boardSquares.Cast<Square>().Any(square => square.XCoordinate == coordinate
+                .XCoordinate && square.YCoordinate == coordinate.YCoordinate && square.IsRevealed == false);
+        }
     }
 }

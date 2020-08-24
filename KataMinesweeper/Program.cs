@@ -8,10 +8,11 @@ namespace KataMinesweeper
         
         {
             var board = new Board(4);
-            var minesweeper = new Minesweeper(board);
+            
             var consoleInputOutput = new ConsoleInputOutput();
             var player = new Player(consoleInputOutput);
             var coord = player.PlayTurn();
+            var minesweeper = new Minesweeper(board, player, consoleInputOutput);
             
             board.GetHintForPlayerMove(coord);
             Console.WriteLine(board.DisplayBoard());

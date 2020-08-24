@@ -11,7 +11,6 @@ namespace KataMinesweeper
         public MineStatus MineStatus { get; set; }
         public bool IsRevealed { get; set; }
         
-
         public Square(int xCoordinate, int yCoordinate)
         {
             XCoordinate = xCoordinate;

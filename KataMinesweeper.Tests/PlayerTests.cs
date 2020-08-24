@@ -5,7 +5,7 @@ namespace KataMinesweeper.Tests
     public class PlayerTests
     {
         [Fact]
-        public void Place_Symbol_With_X_And_Y_Coordinates()
+        public void Plays_Single_Turn_With_X_And_Y_Coordinates()
         {
             //arrange
             var input = new PlayerInput((1,1));
@@ -16,5 +16,8 @@ namespace KataMinesweeper.Tests
             Assert.Equal(1, coordinate.XCoordinate);
             Assert.Equal(1, coordinate.YCoordinate);
         }
+        
+        
+        //
     }
 }

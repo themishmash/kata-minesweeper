@@ -10,11 +10,9 @@ namespace KataMinesweeper
         }
         public Coordinate PlayTurn()
         {
-            var (x, y) = _iio.AskQuestion("Please enter a coordinate to play");
+            var (x, y) = _iio.AskQuestion("Please enter a coordinate to play: ");
             var coordinate = new Coordinate(x,y);
             return coordinate;
         }
-
-        
     }
 }

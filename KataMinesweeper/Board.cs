@@ -7,7 +7,9 @@ namespace KataMinesweeper
     public class Board
     {
         public int Size;
-        private Square[,] _boardSquares; 
+        private Square[,] _boardSquares;
+
+        
 
         public Board(int size)
         {
@@ -19,7 +21,6 @@ namespace KataMinesweeper
         private void CreateBoard()
         {
             _boardSquares = new Square[Size, Size];
-            
             for (var x = 0; x < Size; x++)
             {
                 for (var y = 0; y < Size; y++)
@@ -61,11 +62,11 @@ namespace KataMinesweeper
         public void GetHintForPlayerMove(Coordinate coordinate)
         {
             var square = GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
-            var neighbourSquares = new List<Square>();
+            var neighbours = new List<Square>();
 
-            GetNeighbourSquares(square, neighbourSquares);
+            GetNeighbourSquares(square, neighbours);
             
-            var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+            var hint = neighbours.Count(x => x.MineStatus == MineStatus.True);
 
             if (square.MineStatus == MineStatus.False)
             {
@@ -87,9 +88,9 @@ namespace KataMinesweeper
         {
             foreach (var square in _boardSquares)
             {
-                var neighbourSquares = new List<Square>();
-                GetNeighbourSquares(square, neighbourSquares);
-                var hint = neighbourSquares.Count(x => x.MineStatus == MineStatus.True);
+                var neighbours = new List<Square>();
+                GetNeighbourSquares(square, neighbours);
+                var hint = neighbours.Count(x => x.MineStatus == MineStatus.True);
 
                 if (square.MineStatus == MineStatus.False)
                 {
@@ -98,7 +99,7 @@ namespace KataMinesweeper
             }
         }
 
-        private void GetNeighbourSquares(Square square, List<Square> neighbourSquares)
+        private void GetNeighbourSquares(Square square, ICollection<Square> neighbours)
         {
             for (var xCoordinate = square.XCoordinate - 1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
             {
@@ -117,7 +118,7 @@ namespace KataMinesweeper
                         continue;
                     }
 
-                    neighbourSquares.Add(_boardSquares[xCoordinate, yCoordinate]);
+                    neighbours.Add(_boardSquares[xCoordinate, yCoordinate]);
                 }
             }
         }
@@ -127,9 +128,9 @@ namespace KataMinesweeper
             return _boardSquares.Cast<Square>().Where(square => square.MineStatus == MineStatus.True).ToList();
         }
         
-        public Square GetSquare(int xCoordinate, int YCoordinate)
+        public Square GetSquare(int xCoordinate, int yCoordinate)
         {
-            return _boardSquares[xCoordinate, YCoordinate];
+            return _boardSquares[xCoordinate, yCoordinate];
         }
 
     }

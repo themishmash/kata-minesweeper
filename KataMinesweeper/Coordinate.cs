@@ -11,10 +11,5 @@ namespace KataMinesweeper
             YCoordinate = yCoordinate;
         }
         
-        
-        
-        
-
-        
     }
 }

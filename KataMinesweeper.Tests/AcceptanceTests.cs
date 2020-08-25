@@ -16,7 +16,7 @@ namespace KataMinesweeper.Tests
             // minesweeper.PlayGame();
 
             
-            Assert.Equal(4, board.CountMines());
+            //Assert.Equal(4, board.CountMines());
             // Assert.Equal(1, move.XCoordinate);
             // Assert.Equal(0, move.YCoordinate);
             //Assert.Equal(GameStatus.Lost, minesweeper.GameStatus);

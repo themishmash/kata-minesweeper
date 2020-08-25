@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace KataMinesweeper
 {
     public class HintCalculator
@@ -12,38 +9,10 @@ namespace KataMinesweeper
             _board = board;
         }
 
-        // public int GetHintFromPlayerMove(Coordinate coordinate)
-        // {
-        //     var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
-        //     var 
-        // }
-
-        //not sure?
-        public void RevealSquareForPlayerMove(Coordinate coordinate)
+        public int GetHintFromPlayerMove(Coordinate coordinate)
         {
             var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
-            var neighbours = new List<Square>();
-        
-            GetNeighbourSquares(square, neighbours);
-            
-            var hint = neighbours.Count(x => x.IsMine == true);
-        
-            if (square.IsMine == false)
-            {
-                _board.GetSquare(square.XCoordinate, square.YCoordinate).Hint = hint;
-                _board.GetSquare(square.XCoordinate, square.YCoordinate).IsRevealed = true;
-            }
-            else
-            {
-                square.IsMine = true;
-            }
-            
-        }
-        
-        
-        //maybe move into board class
-        private void GetNeighbourSquares(Square square, ICollection<Square> neighbours)
-        {
+            var count = 0;
             for (var xCoordinate = square.XCoordinate - 1; xCoordinate <= square.XCoordinate + 1; xCoordinate++)
             {
                 for (var yCoordinate = square.YCoordinate - 1; yCoordinate <= square.YCoordinate + 1; yCoordinate++)
@@ -60,11 +29,15 @@ namespace KataMinesweeper
                     {
                         continue;
                     }
-        
-                    neighbours.Add(_board.GetSquare(xCoordinate, yCoordinate));
+                   
+                    if (_board.GetSquare(xCoordinate, yCoordinate).IsMine)
+                    {
+                        count++;
+                    }
                 }
             }
+            _board.GetSquare(square.XCoordinate, square.YCoordinate).Hint = count;
+           return count;
         }
-
     }
 }

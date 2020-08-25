@@ -32,5 +32,27 @@ namespace KataMinesweeper
             return _boardSquares[xCoordinate, yCoordinate];
         }
         
+        public bool AreAllHintsRevealed()
+        {
+            var countMine = 0;
+            var countHint = 0;
+            foreach (var square in _boardSquares)
+            {
+                if (square.IsMine && square.IsRevealed == false)
+                {
+                    countMine++;
+                }
+
+                if (!square.IsMine && square.IsRevealed)
+                {
+                    countHint++;
+                }
+            }
+
+            if (countMine == Size && countHint == Size*Size-Size)
+                return true;
+            return false;
+        }
+
     }
 }

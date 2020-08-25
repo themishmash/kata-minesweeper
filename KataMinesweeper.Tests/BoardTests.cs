@@ -21,6 +21,7 @@ namespace KataMinesweeper.Tests
            Assert.Equal(1, square.XCoordinate);
            Assert.Equal(1, square.YCoordinate);
         }
+
         
         
     }

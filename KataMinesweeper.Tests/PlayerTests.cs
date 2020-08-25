@@ -17,7 +17,5 @@ namespace KataMinesweeper.Tests
             Assert.Equal(1, coordinate.YCoordinate);
         }
         
-        
-        //
     }
 }

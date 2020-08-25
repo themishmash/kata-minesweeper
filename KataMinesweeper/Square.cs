@@ -16,8 +16,8 @@ namespace KataMinesweeper
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
             Hint = 0;
-            IsMine = false; //change to boolean
-            IsRevealed = false; //change to boolean
+            IsMine = false; 
+            IsRevealed = false; 
         }
 
         

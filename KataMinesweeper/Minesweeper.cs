@@ -15,18 +15,20 @@ namespace KataMinesweeper
             _player = player;
             _iio = iio;
             GameStatus = GameStatus.Playing;
+            GenerateMines();
             
 
         }
 
-       
-
-        
-
-
-        public void PlayGame()
+        private void GenerateMines()
         {
-            _iio.Output("Let's begin");
+            //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. 
+            for (var i = 0; i < _board.Size; i++)
+            {
+                var mine = new Square(i, 0);
+                var square = _board.GetSquare(mine.XCoordinate, mine.YCoordinate);
+                square.IsMine = true;
+            }
         }
     }
 }

@@ -3,28 +3,22 @@ using System.Linq;
 
 namespace KataMinesweeper
 {
-    public class WinLose
+    public class HintCalculator
     {
         private readonly Board _board;
 
-        public WinLose(Board board)
+        public HintCalculator(Board board)
         {
             _board = board;
-            GenerateMines(); //move to minesweeper class
         }
-        
-        private void GenerateMines()
-        {
-            //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. 
-            for (var i = 0; i < _board.Size; i++)
-            {
-                var mine = new Square(i, 0);
-                var square = _board.GetSquare(mine.XCoordinate, mine.YCoordinate);
-                square.IsMine = true;
-            }
-        }
-        
-        
+
+        // public int GetHintFromPlayerMove(Coordinate coordinate)
+        // {
+        //     var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
+        //     var 
+        // }
+
+        //not sure?
         public void RevealSquareForPlayerMove(Coordinate coordinate)
         {
             var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
@@ -43,23 +37,9 @@ namespace KataMinesweeper
             {
                 square.IsMine = true;
             }
-        
-            //reveal everything should be moved out. display contents of board.
-            //refactor to show just single mine. and only reveal all mines and all hints with the dis
-            // if (square.MineStatus == MineStatus.True)
-            // {
-                // foreach (var mine in _board.GetMines())
-                // {
-                //     mine.Value = " * ";
-                // }
-                //RevealAllHints(); this doesn't belong here. if over - then reveal all sqaures
-            //}
-        }
-
-        public void CheckMine()
-        {
             
         }
+        
         
         //maybe move into board class
         private void GetNeighbourSquares(Square square, ICollection<Square> neighbours)
@@ -85,25 +65,6 @@ namespace KataMinesweeper
                 }
             }
         }
-        
-        
-        //todo not sure how to include this here
-        //this probably in game class //or maybe board if can't get rid of _boardSquares. 
-        //maybe do a get all hints method
-        // private void RevealAllHints()
-        // {
-        //     foreach (var square in _boardSquares)
-        //     {
-        //         var neighbours = new List<Square>();
-        //         GetNeighbourSquares(square, neighbours);
-        //         var hint = neighbours.Count(x => x.MineStatus == MineStatus.True);
-        //
-        //         if (square.MineStatus == MineStatus.False)
-        //         {
-        //             _board.GetSquare(square.XCoordinate, square.YCoordinate).Value = " " + hint + " ";
-        //         }
-        //     }
-        // }
-        
+
     }
 }

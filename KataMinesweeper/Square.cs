@@ -7,7 +7,7 @@ namespace KataMinesweeper
     {
         public int XCoordinate { get; }
         public int YCoordinate { get; }
-        public int Hint { get; set; }
+        public int Hint { get; set; } 
         public bool IsMine { get; set; } 
         public bool IsRevealed { get; set; }
         

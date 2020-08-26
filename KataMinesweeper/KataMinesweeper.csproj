@@ -42,6 +42,8 @@
         <Compile Include="ConsoleInputOutput.cs" />
         <Compile Include="GameStatus.cs" />
         <Compile Include="IInputOutput.cs" />
+        <Compile Include="IMineGenerator.cs" />
+        <Compile Include="MineGenerator.cs" />
         <Compile Include="Minesweeper.cs" />
         <Compile Include="Coordinate.cs" />
         <Compile Include="Player.cs" />

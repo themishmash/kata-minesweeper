@@ -23,9 +23,9 @@ namespace KataMinesweeper
             }
         }
         
-        public Square GetSquare(int xCoordinate, int yCoordinate)
+        public Square GetSquare(Coordinate coordinate)
         {
-            return _boardSquares[xCoordinate, yCoordinate];
+            return _boardSquares[coordinate.XCoordinate, coordinate.YCoordinate];
         }
         
         public bool AreAllHintsRevealed()

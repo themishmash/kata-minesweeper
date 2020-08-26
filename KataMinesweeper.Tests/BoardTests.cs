@@ -16,13 +16,12 @@ namespace KataMinesweeper.Tests
         public void Get_Square_From_Coordinates()
         {
             var board = new Board(4);
-            var square = board.GetSquare(1, 1);
+            var square = board.GetSquare(new Coordinate(1,1));
             
            Assert.Equal(1, square.XCoordinate);
            Assert.Equal(1, square.YCoordinate);
         }
 
-        
         
     }
 }

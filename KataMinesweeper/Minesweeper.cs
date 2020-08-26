@@ -6,6 +6,7 @@ namespace KataMinesweeper
         private readonly Player _player;
         private readonly IInputOutput _iio;
         private readonly HintCalculator _hintCalculator;
+       // private readonly MineGenerator _mineGenerator;
 
         public GameStatus GameStatus { get; set; }
         
@@ -15,6 +16,8 @@ namespace KataMinesweeper
             _player = player;
             _iio = iio;
             _hintCalculator = new HintCalculator(board);
+          //  _mineGenerator = new MineGenerator(board);
+           
             GameStatus = GameStatus.Playing;
             GenerateMines();
         }
@@ -25,17 +28,19 @@ namespace KataMinesweeper
             for (var i = 0; i < _board.Size; i++)
             {
                 var mine = new Square(i, 0);
-                var square = _board.GetSquare(mine.XCoordinate, mine.YCoordinate);
+                var coordinate = new Coordinate(mine.XCoordinate, mine.YCoordinate);
+                var square = _board.GetSquare(coordinate);
                 square.IsMine = true;
             }
         }
 
         public void PlayGame()
         {
+           // _mineGenerator.PlaceMinesToBoard();
             while (true)
             {
                 var coordinate = _player.PlayTurn();
-                var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
+                var square = _board.GetSquare(coordinate);
                 if (!square.IsMine)
                 {
                     square.Hint = _hintCalculator.Calculate(coordinate); 
@@ -59,6 +64,13 @@ namespace KataMinesweeper
             return _board.AreAllHintsRevealed();
         }
         
+        // public void PlaceMinesToBoard()
+        // {
+        //     foreach (var mine in GenerateMines())
+        //     {
+        //         _board.GetSquare(mine.XCoordinate, mine.YCoordinate).IsMine = true;
+        //     }
+        // }
         
     }
 }

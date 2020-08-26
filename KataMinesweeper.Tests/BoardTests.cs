@@ -5,17 +5,24 @@ namespace KataMinesweeper.Tests
     public class BoardTests
     {
         [Fact]
-        public void Generate_4x4_Board_With_4_Mines()
-        {
-           var board = new Board(4);
-           Assert.Equal(4, board.CountMines());
-        }
-
-        [Fact]
-        public void Generate_Squares_In_Board_With_Hints()
+        public void Generate_Board_Of_Size_4()
         {
             var board = new Board(4);
-            Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 ",board.DisplayBoard());
+
+            Assert.Equal(4, board.Size);
         }
+        
+        [Fact]
+        public void Get_Square_From_Coordinates()
+        {
+            var board = new Board(4);
+            var square = board.GetSquare(1, 1);
+            
+           Assert.Equal(1, square.XCoordinate);
+           Assert.Equal(1, square.YCoordinate);
+        }
+
+        
+        
     }
 }

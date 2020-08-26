@@ -2,9 +2,17 @@ namespace KataMinesweeper
 {
     public class Player
     {
-        public Move MakeMove(int i, int i1)
+        private readonly IInputOutput _iio;
+
+        public Player(IInputOutput iio)
         {
-            return new Move();
+            _iio = iio;
+        }
+        public Coordinate PlayTurn()
+        {
+            var (x, y) = _iio.AskQuestion("Please enter a coordinate to play: ");
+            var coordinate = new Coordinate(x,y);
+            return coordinate;
         }
     }
 }

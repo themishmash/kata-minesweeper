@@ -4,9 +4,7 @@ namespace KataMinesweeper
 {
     public interface IMineGenerator
     {
-        // int GetXCoordinate();
-        //
-        // int GetYCoordinate();
-        IEnumerable<Square> GenerateMines();
+        IEnumerable<Coordinate> GenerateMines();
+        void PlaceMinesToBoard();
     }
 }

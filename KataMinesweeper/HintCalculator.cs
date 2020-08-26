@@ -17,18 +17,10 @@ namespace KataMinesweeper
             {
                 for (var yCoordinate = squareToCheck.YCoordinate - 1; yCoordinate <= squareToCheck.YCoordinate + 1; yCoordinate++)
                 {
-                    //continue if square being checked
-                    if (xCoordinate == squareToCheck.XCoordinate && yCoordinate == squareToCheck.YCoordinate)
-                    {
-                        continue;
-                    }
+                
+                    if (IsSquareToCheck(xCoordinate, yCoordinate, squareToCheck)) continue;
                     
-                    //continue if out of bounds
-                    //3 - is the three points square is touching in a row or column. so don't want to iterate more than 3
-                    if (xCoordinate < 0 || xCoordinate > _board.Size-1 || yCoordinate < 0 || yCoordinate > _board.Size-1)
-                    {
-                        continue;
-                    }
+                    if (IsOutOfBoundary(xCoordinate, yCoordinate)) continue;
                     
                     var neighbourCoordinate = new Coordinate(xCoordinate, yCoordinate);
                     if (_board.GetSquare(neighbourCoordinate).IsMine)
@@ -38,6 +30,16 @@ namespace KataMinesweeper
                 }
             }
             return count;
+        }
+
+        private static bool IsSquareToCheck(int xCoordinate, int yCoordinate, Square squareToCheck)
+        {
+            return xCoordinate == squareToCheck.XCoordinate && yCoordinate == squareToCheck.YCoordinate;
+        }
+        
+        private bool IsOutOfBoundary(int xCoordinate, int yCoordinate)
+        {
+            return xCoordinate < 0 || xCoordinate > _board.Size-1 || yCoordinate < 0 || yCoordinate > _board.Size-1;
         }
     }
 }

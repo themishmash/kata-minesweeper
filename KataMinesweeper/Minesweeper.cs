@@ -1,3 +1,5 @@
+using System;
+
 namespace KataMinesweeper
 {
     public class Minesweeper
@@ -6,7 +8,7 @@ namespace KataMinesweeper
         private readonly Player _player;
         private readonly IInputOutput _iio;
         private readonly HintCalculator _hintCalculator;
-       // private readonly MineGenerator _mineGenerator;
+        private readonly MineGenerator _mineGenerator;
 
         public GameStatus GameStatus { get; set; }
         
@@ -16,27 +18,29 @@ namespace KataMinesweeper
             _player = player;
             _iio = iio;
             _hintCalculator = new HintCalculator(board);
-          //  _mineGenerator = new MineGenerator(board);
+           _mineGenerator = new MineGenerator(board);
            
             GameStatus = GameStatus.Playing;
-            GenerateMines();
+            //GenerateMines();
         }
 
-        private void GenerateMines()
-        {
-            //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. later create Mine placing class. 
-            for (var i = 0; i < _board.Size; i++)
-            {
-                var mine = new Square(i, 0);
-                var coordinate = new Coordinate(mine.XCoordinate, mine.YCoordinate);
-                var square = _board.GetSquare(coordinate);
-                square.IsMine = true;
-            }
-        }
+        // private void GenerateMines()
+        // {
+        //     //todo generating random ones - need to do a check. if minestatus is false - then set to true. new mine only created with those that are false. later create Mine placing class. 
+        //     for (var i = 0; i < _board.Size; i++)
+        //     {
+        //         var mine = new Square(i, 0);
+        //         var coordinate = new Coordinate(mine.XCoordinate, mine.YCoordinate);
+        //         var square = _board.GetSquare(coordinate);
+        //         square.IsMine = true;
+        //     }
+        // }
 
         public void PlayGame()
         {
-           // _mineGenerator.PlaceMinesToBoard();
+            _mineGenerator.PlaceMinesToBoard();
+           _iio.Output(DisplayBoard());
+           
             while (true)
             {
                 var coordinate = _player.PlayTurn();
@@ -59,18 +63,33 @@ namespace KataMinesweeper
             }
         }
 
+        private string DisplayBoard()
+        {
+            var board = "";
+            for (var i = 0; i < _board.Size; i++)
+            {
+                for (var j = 0; j < _board.Size; j++)
+                {
+                    var coordinate = new Coordinate(i, j);
+                    var hint = _hintCalculator.Calculate(coordinate);
+                    var square = _board.GetSquare(coordinate);
+                    if (square.IsMine)
+                        board += " * ";
+                    
+                    if(!square.IsMine)
+                        board += " " + hint + " ";
+                }
+                board += Environment.NewLine;
+            }
+            return board;
+        }
+
+
         private bool HasPlayerWon()
         {
             return _board.AreAllHintsRevealed();
         }
         
-        // public void PlaceMinesToBoard()
-        // {
-        //     foreach (var mine in GenerateMines())
-        //     {
-        //         _board.GetSquare(mine.XCoordinate, mine.YCoordinate).IsMine = true;
-        //     }
-        // }
         
     }
 }

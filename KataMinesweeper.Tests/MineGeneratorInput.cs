@@ -5,76 +5,31 @@ namespace KataMinesweeper.Tests
 {
     public class MineGeneratorInput:IMineGenerator
     {
-        private readonly int _xCoordinate;
-        private readonly int _yCoordinate;
-        private List<Square> _mines = new List<Square>();
-
-
-        public MineGeneratorInput(IEnumerable<Square> mines)
-        {
-            foreach (var mine in mines)
-            {
-                _mines.Add(mine);
-            }
-        }
+        private List<Coordinate> _mines;
+        private readonly Board _board;
         
-        public int GetXCoordinate()
+        public MineGeneratorInput(Board board)
         {
-            return _xCoordinate;
+            _board = board;
         }
-
-        public int GetYCoordinate()
+        public IEnumerable<Coordinate> GenerateMines()
         {
-            return _yCoordinate;
-        }
-        
-        // public MineGeneratorInput(IEnumerable<(int, int)> mines)
-        // {
-        //     foreach (var mine in mines)
-        //     {
-        //        _mines.Add(mine);
-        //     }
-        // }
-        //
-        // public (int x, int y) GetMineCoordinates()
-        // {
-        //     var mine = (0, 0);
-        //     for (var i = 0; i <= _mines.Count;)
-        //     {
-        //         mine = _mines.FirstOrDefault();
-        //         _mines.Remove(mine);
-        //         return mine;
-        //     }
-        //     return mine;
-        // }
-        
-        public Square CreateMines()
-        {
-            var mine = new Square(0,0);
-            for (var i = 0; i <= _mines.Count;)
+            _mines = new List<Coordinate>
             {
-                mine = _mines.FirstOrDefault();
-                _mines.Remove(mine);
-                return mine;
-            }
-
-            return mine;
-        }
-
-
-        public IEnumerable<Square> GenerateMines()
-        {
-            _mines = new List<Square>();
-            for (var i = 0; i <= 3; i++)
-            {
-                var mine = new Square(GetXCoordinate(), GetYCoordinate()){IsMine = true};
-                if (!_mines.Contains(mine))
-                {
-                    _mines.Add(mine);
-                }
-            }
-
+                new Coordinate(0, 0), 
+                new Coordinate(0, 1), 
+                new Coordinate(0, 2), 
+                new Coordinate(0, 3)
+            };
             return _mines;
+        }
+        
+        public void PlaceMinesToBoard()
+        {
+            foreach (var coordinate in GenerateMines())
+            {
+                _board.GetSquare(coordinate).IsMine = true;
+            }
         }
     }
 }

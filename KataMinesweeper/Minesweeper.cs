@@ -9,7 +9,6 @@ namespace KataMinesweeper
 
         public GameStatus GameStatus { get; set; }
         
-
         public Minesweeper(Board board, Player player, IInputOutput iio)
         {
             _board = board;
@@ -31,18 +30,15 @@ namespace KataMinesweeper
             }
         }
 
-        
-
         public void PlayGame()
         {
-            
             while (true)
             {
                 var coordinate = _player.PlayTurn();
                 var square = _board.GetSquare(coordinate.XCoordinate, coordinate.YCoordinate);
                 if (!square.IsMine)
                 {
-                    _hintCalculator.GetHintFromPlayerMove(coordinate);
+                    square.Hint = _hintCalculator.Calculate(coordinate); 
                     square.IsRevealed = true;
                 }
                 if (square.IsMine)
@@ -52,11 +48,9 @@ namespace KataMinesweeper
                     return;
                 }
 
-                if (HasPlayerWon())
-                {
-                    GameStatus = GameStatus.Won;
-                    return;
-                }
+                if (!HasPlayerWon()) continue;
+                GameStatus = GameStatus.Won;
+                return;
             }
         }
 
@@ -64,5 +58,7 @@ namespace KataMinesweeper
         {
             return _board.AreAllHintsRevealed();
         }
+        
+        
     }
 }

@@ -15,7 +15,7 @@ namespace KataMinesweeper.Tests
             var minesweeper = new Minesweeper(board, player, new NullInputOutput());
             var coordinate = new Coordinate(1,1);
 
-            Assert.Equal(3, hintCalculator.GetHintFromPlayerMove(coordinate));
+            Assert.Equal(3, hintCalculator.Calculate(coordinate));
         }
     }
 }

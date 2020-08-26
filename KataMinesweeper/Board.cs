@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace KataMinesweeper
 {
     public class Board
@@ -49,9 +45,7 @@ namespace KataMinesweeper
                 }
             }
 
-            if (countMine == Size && countHint == Size*Size-Size)
-                return true;
-            return false;
+            return countMine == Size && countHint == Size*Size-Size;
         }
 
     }

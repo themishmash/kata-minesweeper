@@ -12,7 +12,7 @@ namespace KataMinesweeper.Tests
             var testInput = new PlayerInput(new List<(int, int)>{(1, 1)
         });
 
-        var player = new Player(testInput);
+            var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput());
 
             Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);

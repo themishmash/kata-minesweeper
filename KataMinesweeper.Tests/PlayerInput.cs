@@ -16,7 +16,6 @@ namespace KataMinesweeper.Tests
             }
         }
         
-
         public (int x, int y) AskQuestion(string answer)
         {
             var move = (0, 0);
@@ -26,7 +25,6 @@ namespace KataMinesweeper.Tests
                 _turns.Remove(move);
                 return move;
             }
-
             return move;
         }
 

@@ -17,12 +17,9 @@ namespace KataMinesweeper
             YCoordinate = yCoordinate;
             Hint = 0;
             IsMine = false; 
-            IsRevealed = false; 
+            IsRevealed = false;
         }
-
         
-        
-       
 
     }
 }

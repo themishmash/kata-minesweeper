@@ -44,7 +44,6 @@ namespace KataMinesweeper
                     countHint++;
                 }
             }
-
             return countMine == Size && countHint == Size*Size-Size;
         }
 

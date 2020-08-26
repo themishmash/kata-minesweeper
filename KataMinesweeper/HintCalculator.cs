@@ -18,7 +18,6 @@ namespace KataMinesweeper
                 for (var yCoordinate = squareToCheck.YCoordinate - 1; yCoordinate <= squareToCheck.YCoordinate + 1; yCoordinate++)
                 {
                     //continue if square being checked
-                    
                     if (xCoordinate == squareToCheck.XCoordinate && yCoordinate == squareToCheck.YCoordinate) continue;
                     
                     //continue if out of bounds
@@ -31,8 +30,7 @@ namespace KataMinesweeper
                     }
                 }
             }
-            //_board.GetSquare(squareToCheck.XCoordinate, squareToCheck.YCoordinate).Hint = count; // this should be taken out as this method doing two things. 
-           return count;
+            return count;
         }
     }
 }

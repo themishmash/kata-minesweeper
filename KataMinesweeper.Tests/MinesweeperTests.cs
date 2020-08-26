@@ -9,9 +9,7 @@ namespace KataMinesweeper.Tests
         public void Game_Status_Set_To_Playing_At_Start_Of_Game()
         {
             var board = new Board(4);
-            var testInput = new PlayerInput(new List<(int, int)>{(1, 1)
-        });
-
+            var testInput = new PlayerInput(new List<(int, int)>{(1, 1)});
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput());
 

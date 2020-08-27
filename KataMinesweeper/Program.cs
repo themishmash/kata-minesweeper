@@ -6,8 +6,10 @@
         {
          var board = new Board(4);
          var consoleInputOutput = new ConsoleInputOutput();
+         var mineGenerator = new MineGenerator(board);
+         
          var player = new Player(consoleInputOutput);
-         var minesweeper = new Minesweeper(board, player, consoleInputOutput);
+         var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
          minesweeper.PlayGame();
         }
     }

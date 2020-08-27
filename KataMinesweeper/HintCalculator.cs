@@ -1,15 +1,18 @@
+using System.Collections.Generic;
+
 namespace KataMinesweeper
 {
     public class HintCalculator
     {
         private readonly Board _board;
+        private readonly List<Coordinate> _coordinates;
 
         public HintCalculator(Board board)
         {
             _board = board;
         }
 
-        public int Calculate(Coordinate coordinate)
+        public int Calculate(Coordinate coordinate) //ssquares in the boardgame
         {
             var squareToCheck = _board.GetSquare(coordinate);
             var count = 0;
@@ -31,6 +34,8 @@ namespace KataMinesweeper
             }
             return count;
         }
+        
+        
 
         private static bool IsSquareToCheck(int xCoordinate, int yCoordinate, Square squareToCheck)
         {

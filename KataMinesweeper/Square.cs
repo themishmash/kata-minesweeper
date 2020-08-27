@@ -10,6 +10,7 @@ namespace KataMinesweeper
         public int Hint { get; set; } 
         public bool IsMine { get; set; } 
         public bool IsRevealed { get; set; }
+        public bool IsFlagged { get; set; }
         
         public Square(int xCoordinate, int yCoordinate)
         {
@@ -18,6 +19,7 @@ namespace KataMinesweeper
             Hint = 0;
             IsMine = false; 
             IsRevealed = false;
+            IsFlagged = false;
         }
         
 

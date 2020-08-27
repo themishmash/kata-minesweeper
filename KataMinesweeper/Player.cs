@@ -14,5 +14,6 @@ namespace KataMinesweeper
             var coordinate = new Coordinate(x,y);
             return coordinate;
         }
+        
     }
 }

@@ -2,8 +2,8 @@ namespace KataMinesweeper
 {
     public class Board
     {
-        public int Size;
-        private Square[,] _boardSquares;
+        public readonly int Size;
+        private Square[,] _boardSquares; 
         
         public Board(int size)
         {
@@ -28,13 +28,15 @@ namespace KataMinesweeper
             return _boardSquares[coordinate.XCoordinate, coordinate.YCoordinate];
         }
         
+        
+        //todo move out this class
         public bool AreAllHintsRevealed()
         {
             var countMine = 0;
             var countHint = 0;
             foreach (var square in _boardSquares)
             {
-                if (square.IsMine && square.IsRevealed == false)
+                if (square.IsMine && !square.IsRevealed)
                 {
                     countMine++;
                 }
@@ -46,7 +48,5 @@ namespace KataMinesweeper
             }
             return countMine == Size && countHint == Size*Size-Size;
         }
-
-        
     }
 }

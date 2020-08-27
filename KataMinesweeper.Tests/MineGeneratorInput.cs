@@ -10,15 +10,16 @@ namespace KataMinesweeper.Tests
         public MineGeneratorInput(Board board)
         {
             _board = board;
+            GenerateMines();
         }
         public IEnumerable<Coordinate> GenerateMines()
         {
             _mines = new List<Coordinate>
             {
                 new Coordinate(0, 0), 
-                new Coordinate(0, 1), 
-                new Coordinate(0, 2), 
-                new Coordinate(0, 3)
+                new Coordinate(1, 0), 
+                new Coordinate(2, 0), 
+                new Coordinate(3, 0)
             };
             return _mines;
         }

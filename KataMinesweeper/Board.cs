@@ -47,9 +47,6 @@ namespace KataMinesweeper
             return countMine == Size && countHint == Size*Size-Size;
         }
 
-        public string DiplayBoard()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }

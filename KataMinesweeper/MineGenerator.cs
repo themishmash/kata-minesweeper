@@ -28,6 +28,8 @@ namespace KataMinesweeper
             return randomCoordinate;
         }
         
+        
+        //make sure playercoordiante not added into list of mines
         public IEnumerable<Coordinate> GenerateMines()
         {
             _mines = new List<Coordinate>();

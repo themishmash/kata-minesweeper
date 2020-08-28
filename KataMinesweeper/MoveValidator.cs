@@ -4,8 +4,6 @@ namespace KataMinesweeper
     {
         public static bool IsValidMove(Coordinate coordinate, Board board)
         {
-            //var square = board.GetSquare(coordinate); //getting valid move. not exist on board. it won't be on the board at all. maybe need to call 
-            //board.checkifsquareblank
             return board.IsSquareUnrevealed(coordinate) && IsNumberWithinBoundary(coordinate.XCoordinate, coordinate.YCoordinate, 
             board);
         }

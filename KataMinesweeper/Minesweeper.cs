@@ -9,12 +9,10 @@ namespace KataMinesweeper
         private readonly Player _player;
         private readonly IInputOutput _iio;
         private readonly HintCalculator _hintCalculator;
-        private readonly MineGenerator _mineGenerator;
-        private static int count = 0;
+       
+        private static int _count = 0;
 
         private readonly IMineGenerator _iMineGenerator;
-        //todo make mine gen be iminegenerator
-        //feed it minegenerator
 
         public GameStatus GameStatus { get; private set; }
         
@@ -42,7 +40,7 @@ namespace KataMinesweeper
             _iMineGenerator.PlaceMinesToBoard();
            _iio.Output(RevealAllMinesAndHints());
            _iio.Output(DisplayBlankBoard());
-           var count = 0;
+           //var count = 0;
             while (true)
             {
                 var coordinate = _player.PlayTurn();
@@ -58,13 +56,13 @@ namespace KataMinesweeper
                     square.IsRevealed = true;
                     square.Hint = _hintCalculator.Calculate(coordinate);
                     GameStatus = GameStatus.Playing;
-                    _iio.Output(RevealSquareForPlayerMove(coordinate));
+                    _iio.Output(RevealHintForPlayerMove()); //this should be display board
                 }
                 if (square.IsMine)
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
-                    _iio.Output(RevealAllMinesAndHints());
+                    _iio.Output(RevealAllMinesAndHints()); //this shoudl be display board
                     return;
                 }
 
@@ -89,6 +87,8 @@ namespace KataMinesweeper
         }
 
         //maybe combine these two methods - take in boolean should reveal part board or whole board. 
+        
+        //this should change to DisplayBoard name.
         private string RevealAllMinesAndHints()  
         {
             var board = "";
@@ -96,9 +96,11 @@ namespace KataMinesweeper
             {
                 for (var j = 0; j < _board.Size; j++)
                 {
+            
+                    var square = _board.GetSquare(new Coordinate(i,j));
+                    
                     var coordinate = new Coordinate(i, j);
                     var hint = _hintCalculator.Calculate(coordinate);
-                    var square = _board.GetSquare(new Coordinate(i,j));
                     
                     if (square.IsMine)
                         board += " * ";
@@ -110,8 +112,14 @@ namespace KataMinesweeper
             }
             return board;
         }
+        
+        //Ismineselected - it will display all or display single
+        
+        //playercoordinate only need to be called in extracted method
+        
+        //to display blank board - check if all square.unrevealed
 
-        private string RevealSquareForPlayerMove(Coordinate playerCoordinate)
+        private string RevealHintForPlayerMove()
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)
@@ -119,21 +127,41 @@ namespace KataMinesweeper
                 for (var j = 0; j < _board.Size; j++)
                 {
                     var square = _board.GetSquare(new Coordinate(i,j));
-                    var playerSquare = _board.GetSquare(playerCoordinate);
-                    if (square.IsRevealed == false)
-                    {
-                        board += " . ";
-                    }
-                    if (square.IsRevealed && !square.IsMine && playerSquare.IsRevealed && !playerSquare.IsMine)
-                    {
-                        board += " " + square.Hint + " ";
-                    }
+                    
+                    //if square.ismine == then show
+                    //if square not mine - show
+                   
+                       board = DisplayHints(square, board); //todo THIS WORKS NEED TO NOW EXTRACT DISPLAY. DO BOOLEAN
+                   
+                   
+                   // var playerSquare = _board.GetSquare(playerCoordinate);
+                    
                 }
                 board += Environment.NewLine;
             }
             return board;
         }
-        
+
+        private static string DisplayHints(Square square, string board)
+        {
+            if (square.IsRevealed == false)
+            {
+                board += " . ";
+            }
+
+            if (square.IsRevealed && !square.IsMine)
+            {
+                board += " " + square.Hint + " ";
+            }
+
+            return board;
+        }
+
+        private bool IsMineSelected(Square square)
+        {
+            return square.IsMine;
+        }
+
         private bool HasPlayerWon(Coordinate coordinate)
         {
             return AreAllHintsRevealed(coordinate);
@@ -143,10 +171,81 @@ namespace KataMinesweeper
         {
             if (!_board.GetSquare(coordinate).IsMine && _board.GetSquare(coordinate).IsRevealed)
             {
-                count++;
+                _count++;
             }
-            return count == _board.Size*_board.Size-_board.Size;
+            return _count == _board.Size*_board.Size-_board.Size;
         }
+        
+        // private string DisplayBlankBoard()
+        // {
+        //     var board = "";
+        //     for (var i = 0; i < _board.Size; i++)
+        //     {
+        //         for (var j = 0; j < _board.Size; j++)
+        //         {
+        //             board += " . ";
+        //         }
+        //         board += Environment.NewLine;
+        //     }
+        //     return board;
+        // }
+        //
+        // //maybe combine these two methods - take in boolean should reveal part board or whole board. 
+        //
+        // //this should change to DisplayBoard name.
+        // private string RevealAllMinesAndHints()  
+        // {
+        //     var board = "";
+        //     for (var i = 0; i < _board.Size; i++)
+        //     {
+        //         for (var j = 0; j < _board.Size; j++)
+        //         {
+        //     
+        //             var square = _board.GetSquare(new Coordinate(i,j));
+        //             
+        //             var coordinate = new Coordinate(i, j);
+        //             var hint = _hintCalculator.Calculate(coordinate);
+        //             
+        //             if (square.IsMine)
+        //                 board += " * ";
+        //             
+        //             if(!square.IsMine)
+        //                 board += " " + hint + " ";
+        //         }
+        //         board += Environment.NewLine;
+        //     }
+        //     return board;
+        // }
+        //
+        // //Ismineselected - it will display all or display single
+        //
+        // //playercoordinate only need to be called in extracted method
+        //
+        // //to display blank board - check if all square.unrevealed
+        //
+        // private string RevealHintForPlayerMove(Coordinate playerCoordinate)
+        // {
+        //     var board = "";
+        //     for (var i = 0; i < _board.Size; i++)
+        //     {
+        //         for (var j = 0; j < _board.Size; j++)
+        //         {
+        //             var square = _board.GetSquare(new Coordinate(i,j));
+        //             
+        //             var playerSquare = _board.GetSquare(playerCoordinate);
+        //             if (square.IsRevealed == false)
+        //             {
+        //                 board += " . ";
+        //             }
+        //             if (square.IsRevealed && !square.IsMine && playerSquare.IsRevealed && !playerSquare.IsMine)
+        //             {
+        //                 board += " " + square.Hint + " ";
+        //             }
+        //         }
+        //         board += Environment.NewLine;
+        //     }
+        //     return board;
+        // }
         
     }
 }

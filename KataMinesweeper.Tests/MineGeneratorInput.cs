@@ -10,7 +10,6 @@ namespace KataMinesweeper.Tests
         public MineGeneratorInput(Board board)
         {
             _board = board;
-            GenerateMines();
         }
         public IEnumerable<Coordinate> GenerateMines()
         {

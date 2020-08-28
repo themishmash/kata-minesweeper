@@ -13,7 +13,7 @@ namespace KataMinesweeper.Tests
             var mineInput = new MineGeneratorInput(board);
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
-        
+
             Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);
         }
 
@@ -25,6 +25,7 @@ namespace KataMinesweeper.Tests
             var mineInput = new MineGeneratorInput(board);
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
+            
             minesweeper.PlayGame();
             
             Assert.Equal(GameStatus.Lost, minesweeper.GameStatus);
@@ -38,6 +39,7 @@ namespace KataMinesweeper.Tests
             var player = new Player(testInput);
             var mineInput = new MineGeneratorInput(board);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
+            
             minesweeper.PlayGame();
             
             Assert.Equal(GameStatus.Won, minesweeper.GameStatus);

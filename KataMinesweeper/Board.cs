@@ -28,25 +28,24 @@ namespace KataMinesweeper
             return _boardSquares[coordinate.XCoordinate, coordinate.YCoordinate];
         }
         
-        
-        //todo move out this class
+        //todo move out to another class
         public bool AreAllHintsRevealed()
         {
-            var countMine = 0;
+            //var countMine = 0;
             var countHint = 0;
             foreach (var square in _boardSquares)
             {
-                if (square.IsMine && !square.IsRevealed)
-                {
-                    countMine++;
-                }
+                // if (square.IsMine && !square.IsRevealed)
+                // {
+                //     countMine++;
+                // }
 
                 if (!square.IsMine && square.IsRevealed)
                 {
                     countHint++;
                 }
             }
-            return countMine == Size && countHint == Size*Size-Size;
+            return countHint == Size*Size-Size;
         }
     }
 }

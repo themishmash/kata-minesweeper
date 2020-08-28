@@ -88,7 +88,8 @@ namespace KataMinesweeper
             return board;
         }
 
-        private string RevealAllMinesAndHints()
+        //maybe combine these two methods - take in boolean should reveal part board or whole board. 
+        private string RevealAllMinesAndHints()  
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)
@@ -135,8 +136,7 @@ namespace KataMinesweeper
         
         private bool HasPlayerWon(Coordinate coordinate)
         {
-           // return _board.AreAllHintsRevealed();
-           return AreAllHintsRevealed(coordinate);
+            return AreAllHintsRevealed(coordinate);
         }
 
         private bool AreAllHintsRevealed(Coordinate coordinate)

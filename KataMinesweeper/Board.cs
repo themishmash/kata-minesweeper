@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace KataMinesweeper
 {
     public class Board
@@ -27,25 +30,31 @@ namespace KataMinesweeper
         {
             return _boardSquares[coordinate.XCoordinate, coordinate.YCoordinate];
         }
-        
-        //todo move out to another class
-        public bool AreAllHintsRevealed()
-        {
-            //var countMine = 0;
-            var countHint = 0;
-            foreach (var square in _boardSquares)
-            {
-                // if (square.IsMine && !square.IsRevealed)
-                // {
-                //     countMine++;
-                // }
 
-                if (!square.IsMine && square.IsRevealed)
-                {
-                    countHint++;
-                }
-            }
-            return countHint == Size*Size-Size;
+        public bool IsSquareUnrevealed(Coordinate coordinate)
+        {
+            var squares = _boardSquares.Cast<Square>().ToList();
+            return squares.Any(s => s.XCoordinate == coordinate.XCoordinate && s.YCoordinate == coordinate.YCoordinate && s.IsRevealed == false);
         }
+        
+        // //todo move out to another class
+        // public bool AreAllHintsRevealed()
+        // {
+        //     //var countMine = 0;
+        //     var countHint = 0;
+        //     foreach (var square in _boardSquares)
+        //     {
+        //         // if (square.IsMine && !square.IsRevealed)
+        //         // {
+        //         //     countMine++;
+        //         // }
+        //
+        //         if (!square.IsMine && square.IsRevealed)
+        //         {
+        //             countHint++;
+        //         }
+        //     }
+        //     return countHint == Size*Size-Size;
+        // }
     }
 }

@@ -40,8 +40,7 @@ namespace KataMinesweeper
             _iMineGenerator.PlaceMinesToBoard();
            _iio.Output(RevealAllMinesAndHints());
            _iio.Output(DisplayBlankBoard());
-           //var count = 0;
-            while (true)
+           while (true)
             {
                 var coordinate = _player.PlayTurn();
                 while (!MoveValidator.IsValidMove(coordinate, _board))
@@ -56,13 +55,13 @@ namespace KataMinesweeper
                     square.IsRevealed = true;
                     square.Hint = _hintCalculator.Calculate(coordinate);
                     GameStatus = GameStatus.Playing;
-                    _iio.Output(RevealHintForPlayerMove()); //this should be display board
+                    _iio.Output(DisplayBoard(coordinate)); //this should be display board
                 }
                 if (square.IsMine)
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
-                    _iio.Output(RevealAllMinesAndHints()); //this shoudl be display board
+                    _iio.Output(DisplayBoard(coordinate)); //this shoudl be display board
                     return;
                 }
 
@@ -118,44 +117,82 @@ namespace KataMinesweeper
         //playercoordinate only need to be called in extracted method
         
         //to display blank board - check if all square.unrevealed
-
-        private string RevealHintForPlayerMove()
+        private string DisplayBoard(Coordinate playerCoordinate)
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)
             {
                 for (var j = 0; j < _board.Size; j++)
                 {
-                    var square = _board.GetSquare(new Coordinate(i,j));
+                    var coordinate = new Coordinate(i, j);
+                    var square = _board.GetSquare(coordinate);
+                    var hint = _hintCalculator.Calculate(coordinate);
                     
-                    //if square.ismine == then show
-                    //if square not mine - show
-                   
-                       board = DisplayHints(square, board); //todo THIS WORKS NEED TO NOW EXTRACT DISPLAY. DO BOOLEAN
-                   
-                   
-                   // var playerSquare = _board.GetSquare(playerCoordinate);
+                    var playerSquare = _board.GetSquare(playerCoordinate);
+                    if (!playerSquare.IsMine)
+                    {
+                        if (square.IsRevealed == false)
+                        {
+                            board += " . ";
+                        }
+                        if (square.IsRevealed && !square.IsMine && playerSquare.IsRevealed && !playerSquare.IsMine)
+                        {
+                            board += " " + square.Hint + " ";
+                        }
+                    }
                     
+
+                    if (playerSquare.IsMine)
+                    {
+                        if (square.IsMine)
+                            board += " * ";
+                    
+                        if(!square.IsMine)
+                            board += " " + hint + " ";
+                    }
                 }
                 board += Environment.NewLine;
             }
             return board;
         }
 
-        private static string DisplayHints(Square square, string board)
-        {
-            if (square.IsRevealed == false)
-            {
-                board += " . ";
-            }
-
-            if (square.IsRevealed && !square.IsMine)
-            {
-                board += " " + square.Hint + " ";
-            }
-
-            return board;
-        }
+        // private string RevealHintForPlayerMove(Coordinate coordinate)
+        // {
+        //     var board = "";
+        //     for (var i = 0; i < _board.Size; i++)
+        //     {
+        //         for (var j = 0; j < _board.Size; j++)
+        //         {
+        //             var square = _board.GetSquare(new Coordinate(i,j));
+        //             
+        //             //if square.ismine == then show
+        //             //if square not mine - show
+        //            
+        //                board = DisplayHints(square, board); //todo THIS WORKS NEED TO NOW EXTRACT DISPLAY. DO BOOLEAN
+        //            
+        //            
+        //            // var playerSquare = _board.GetSquare(playerCoordinate);
+        //             
+        //         }
+        //         board += Environment.NewLine;
+        //     }
+        //     return board;
+        // }
+        //
+        // private static string DisplayHints(Square square, string board)
+        // {
+        //     if (square.IsRevealed == false)
+        //     {
+        //         board += " . ";
+        //     }
+        //
+        //     if (square.IsRevealed && !square.IsMine)
+        //     {
+        //         board += " " + square.Hint + " ";
+        //     }
+        //
+        //     return board;
+        // }
 
         private bool IsMineSelected(Square square)
         {

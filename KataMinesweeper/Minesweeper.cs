@@ -29,7 +29,12 @@ namespace KataMinesweeper
            {
                _iio.Output(RevealAllMinesAndHints());
                var coordinate = _player.PlayTurn();
-               _iMineGenerator.PlaceMinesToBoard(coordinate);
+
+               if (_board.NoSquaresRevealed())
+               {
+                   _iMineGenerator.PlaceMinesToBoard(coordinate); 
+               }
+               
                _iio.Output(RevealAllMinesAndHints());
                while (!MoveValidator.IsValidMove(coordinate, _board))
                {
@@ -86,6 +91,10 @@ namespace KataMinesweeper
                     var playerSquare = _board.GetSquare(playerCoordinate);
                     
                     board = !playerSquare.IsMine ? DisplayHint(square, board, playerSquare) : DisplayHintAndMines(square, board, hint);
+                    if (_board.NoSquaresRevealed())
+                    {
+                        board += " . ";
+                    }
                 }
                 board += Environment.NewLine;
             }
@@ -127,6 +136,8 @@ namespace KataMinesweeper
             }
             return _hintRevealedCount == _board.Size*_board.Size-_board.Size;
         }
+
+      
         
         private string RevealAllMinesAndHints()  
         {

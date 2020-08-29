@@ -11,7 +11,6 @@ namespace KataMinesweeper
         public MineGenerator(Board board)
         {
             _board = board;
-            //GenerateMines();
         }
 
         private int GetXCoordinate()
@@ -28,9 +27,8 @@ namespace KataMinesweeper
             return randomCoordinate;
         }
         
-        
         //make sure playercoordiante not added into list of mines
-        public IEnumerable<Coordinate> GenerateMines()
+        public IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
         {
             _mines = new List<Coordinate>();
             while (_mines.Count != _board.Size)
@@ -39,17 +37,24 @@ namespace KataMinesweeper
                 var matchingMine =_mines.FirstOrDefault(mine => mine.XCoordinate == coordinate.XCoordinate && mine
                         .YCoordinate ==
                     coordinate.YCoordinate);
+                var matchingPlayerCoordinate = _mines.FirstOrDefault(mine => mine.XCoordinate == playerCoordinate
+                     .XCoordinate && mine.YCoordinate == playerCoordinate.YCoordinate);
                 if (!_mines.Contains(matchingMine))
                 {
                     _mines.Add(coordinate);
+                }
+
+                if (_mines.Contains(matchingPlayerCoordinate))
+                {
+                    _mines.Remove(matchingPlayerCoordinate);
                 }
             }
             return _mines;
         }
 
-        public void PlaceMinesToBoard()
+        public void PlaceMinesToBoard(Coordinate playerCoordinate)
         {
-            foreach (var coordinate in GenerateMines())
+            foreach (var coordinate in GenerateMines(playerCoordinate))
             {
                 _board.GetSquare(coordinate).IsMine = true;
             }

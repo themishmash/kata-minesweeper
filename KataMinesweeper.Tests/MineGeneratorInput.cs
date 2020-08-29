@@ -11,7 +11,7 @@ namespace KataMinesweeper.Tests
         {
             _board = board;
         }
-        public IEnumerable<Coordinate> GenerateMines()
+        public IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
         {
             _mines = new List<Coordinate>
             {
@@ -23,9 +23,9 @@ namespace KataMinesweeper.Tests
             return _mines;
         }
         
-        public void PlaceMinesToBoard()
+        public void PlaceMinesToBoard(Coordinate playerCoordinate)
         {
-            foreach (var coordinate in GenerateMines())
+            foreach (var coordinate in GenerateMines(playerCoordinate))
             {
                 _board.GetSquare(coordinate).IsMine = true;
             }

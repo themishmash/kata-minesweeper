@@ -9,7 +9,8 @@ namespace KataMinesweeper.Tests
         {
             var board = new Board(4);
             var mineGeneratorInput = new MineGeneratorInput(board);
-            mineGeneratorInput.PlaceMinesToBoard();
+            var playerCoordinate = new Coordinate(0,0);
+            mineGeneratorInput.PlaceMinesToBoard(playerCoordinate);
             var coordinate = new Coordinate(1,1);
             var hintCalculator = new HintCalculator(board);
             

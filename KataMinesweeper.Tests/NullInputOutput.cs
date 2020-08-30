@@ -4,7 +4,7 @@ namespace KataMinesweeper.Tests
     {
         public (int x, int y) AskQuestion(string answer)
         {
-            return (0, 0);
+            return (1, 2);
         }
 
         public void Output(string message)

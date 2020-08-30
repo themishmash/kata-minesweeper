@@ -27,7 +27,14 @@ namespace KataMinesweeper
             return randomCoordinate;
         }
         
-        //make sure playercoordiante not added into list of mines
+        public void PlaceMinesToBoard(Coordinate playerCoordinate)
+        {
+            foreach (var coordinate in GenerateMines(playerCoordinate))
+            {
+                _board.GetSquare(coordinate).IsMine = true;
+            }
+        }
+        
         public IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
         {
             _mines = new List<Coordinate>();
@@ -50,14 +57,6 @@ namespace KataMinesweeper
                 }
             }
             return _mines;
-        }
-
-        public void PlaceMinesToBoard(Coordinate playerCoordinate)
-        {
-            foreach (var coordinate in GenerateMines(playerCoordinate))
-            {
-                _board.GetSquare(coordinate).IsMine = true;
-            }
         }
     }
 }

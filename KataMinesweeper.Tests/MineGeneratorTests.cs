@@ -9,13 +9,11 @@ namespace KataMinesweeper.Tests
         {
             var board = new Board(4);
             var mineGeneratorInput = new MineGeneratorInput(board);
-            var playerCoordinate = new Coordinate(0,0);
+            var playerCoordinate = new Coordinate(1,3);
             mineGeneratorInput.PlaceMinesToBoard(playerCoordinate);
-            var coordinate = new Coordinate(1,1);
             var hintCalculator = new HintCalculator(board);
             
-            Assert.Equal(3, hintCalculator.Calculate(coordinate));
-            
+            Assert.Equal(0, hintCalculator.Calculate(playerCoordinate));
         }
     }
 }

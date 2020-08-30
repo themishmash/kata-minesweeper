@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
-
 namespace KataMinesweeper
 {
     public class Square
@@ -21,7 +18,5 @@ namespace KataMinesweeper
             IsRevealed = false;
             IsFlagged = false;
         }
-        
-
     }
 }

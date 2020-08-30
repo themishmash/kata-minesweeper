@@ -6,7 +6,7 @@ namespace KataMinesweeper.Tests
     public class MinesweeperTests
     {
         [Fact]
-        public void Game_Status_Set_To_Playing_At_Start_Of_Game()
+        public void Game_Status_Set_To_Awaiting_First_Move_Before_Play_Game_Called()
         {
             var board = new Board(4);
             var testInput = new PlayerInput(new List<(int, int)>{(1, 1)});
@@ -14,6 +14,20 @@ namespace KataMinesweeper.Tests
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
 
+            Assert.Equal(GameStatus.AwaitingFirstMove, minesweeper.GameStatus);
+        }
+
+        //not working
+        [Fact]
+        public void Game_Status_Set_To_Playing_After_Player_First_Move()
+        {
+            var board = new Board(4);
+            var testInput = new PlayerInput(new List<(int, int)>{(1, 1)});
+            var mineInput = new MineGeneratorInput(board);
+            var player = new Player(testInput);
+            var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
+            
+            minesweeper.PlayGame();
             Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);
         }
 
@@ -44,6 +58,8 @@ namespace KataMinesweeper.Tests
             
             Assert.Equal(GameStatus.Won, minesweeper.GameStatus);
         }
+        
+        //test for board only generates mines after first move. 
         
     }
 }

@@ -14,6 +14,12 @@ namespace KataMinesweeper
             var coordinate = new Coordinate(x,y);
             return coordinate;
         }
-        
+
+        // public Coordinate SetFlag()
+        // {
+        //     var (x, y) = _iio.AskQuestion("Please enter a coordinate to flag: ");
+        //     var coordinate = new Coordinate(x,y);
+        //     return coordinate;
+        // }
     }
 }

@@ -36,7 +36,7 @@ namespace KataMinesweeper
             return squares.Any(s => s.XCoordinate == coordinate.XCoordinate && s.YCoordinate == coordinate.YCoordinate && s.IsRevealed == false);
         }
 
-        public bool NoSquaresRevealed()
+        public bool NoSquareRevealed()
         {
             var squares = _boardSquares.Cast<Square>().ToList();
             return squares.TrueForAll(s => !s.IsRevealed);

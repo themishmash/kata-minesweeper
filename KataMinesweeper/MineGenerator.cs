@@ -35,7 +35,7 @@ namespace KataMinesweeper
         {
             foreach (var coordinate in GenerateMines(playerCoordinate))
             {
-                _board.GetSquare(coordinate).IsMine = true;
+               _board.GetSquare(coordinate).IsMine = true;
             }
         }
         

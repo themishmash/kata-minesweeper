@@ -24,7 +24,6 @@ namespace KataMinesweeper
                 }
             }
         }
-        
         public Square GetSquare(Coordinate coordinate)
         {
             return _boardSquares[coordinate.X, coordinate.Y];
@@ -42,7 +41,6 @@ namespace KataMinesweeper
             return squares.TrueForAll(s => !s.IsRevealed);
         }
         
-        //method getnumber of mines. return number or 
         public int GetNumberOfMines()
         {
             var squares = _boardSquares.Cast<Square>().ToList();

@@ -30,8 +30,7 @@ namespace KataMinesweeper
            {
                //for testing purposes
                //_iio.Output(RevealAllMinesAndHints());
-               
-                var coordinate = _player.PlayTurn();
+               var coordinate = _player.PlayTurn();
                 if (_board.NoSquareRevealed())
                 {
                     _iMineGenerator.PlaceMinesToBoard(coordinate); 
@@ -49,27 +48,26 @@ namespace KataMinesweeper
                 if (!square.IsMine)
                 {
                     square.IsRevealed = true;
-                    square.Hint = _hintCalculator.Calculate(coordinate); //don't need this
                     GameStatus = GameStatus.Playing;
-                    _iio.Output("Here's the current board:");
-                    _iio.Output(DisplayBoard(coordinate)); 
+                    _iio.Output("Current play:");
                 }
-                //else if for the messages. one of display board. 
-                //don't need multiple returns or continues;
+
                 if (square.IsMine)
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
                     _iio.Output("You stepped on a mine! You lose :(");
-                    _iio.Output(DisplayBoard(coordinate)); 
-                    return;
+                    break;
                 }
 
-                if (!HasPlayerWon(coordinate)) continue; //get rid of continue
-                GameStatus = GameStatus.Won; //last thing
-                _iio.Output("Congratulations! You win :)");
-                _iio.Output(DisplayBoard(coordinate)); 
-                return;
+                if (HasPlayerWon(coordinate))
+                {
+                    GameStatus = GameStatus.Won;
+                    _iio.Output("Congratulations! You win :)");
+                    break;
+                }
+                
+                _iio.Output(DisplayBoard(coordinate));
            }
         }
         
@@ -99,7 +97,8 @@ namespace KataMinesweeper
                     var hint = _hintCalculator.Calculate(coordinate);
                     var playerSquare = _board.GetSquare(playerCoordinate);
                     
-                    board = !playerSquare.IsMine ? DisplayHint(square, board, playerSquare) : DisplayHintAndMines(square, board, hint);
+                    board = !playerSquare.IsMine ? DisplayHint(square, board, hint) : DisplayHintAndMines(square, board,
+                     hint);
                     if (_board.NoSquareRevealed())
                     {
                         board += " . ";
@@ -110,15 +109,15 @@ namespace KataMinesweeper
             return board;
         }
         
-        private static string DisplayHint(Square square, string board, Square playerSquare)
+        private static string DisplayHint(Square square, string board, int hint)
         {
             if (square.IsRevealed == false)
             {
                 board += " . ";
             }
-            if (square.IsRevealed && !square.IsMine && playerSquare.IsRevealed && !playerSquare.IsMine)
+            if (square.IsRevealed && !square.IsMine)
             {
-                board += " " + square.Hint + " ";
+                board += " " + hint + " ";
             }
             return board;
         }
@@ -143,7 +142,7 @@ namespace KataMinesweeper
             {
                 _hintRevealedCount++;
             }
-            return _hintRevealedCount == _board.Size*_board.Size-_board.GetNumberOfMines(); //_board.getminesnumber 
+            return _hintRevealedCount == _board.Size*_board.Size-_board.GetNumberOfMines(); 
         }
         
         //using this for testing purposes

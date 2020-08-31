@@ -24,7 +24,7 @@ namespace KataMinesweeper
 
         public void PlayGame()
         {
-            _iio.Output($"You play a turn by entering numbers in the format x,y. Note valid coordinates are between 0 and {_board.Size-1}.");
+            _iio.Output($"Please enter coordinates in the format x,y. Note valid coordinates are between 0 and {_board.Size-1}.");
             _iio.Output(DisplayBlankBoard());
            while (true)
            {

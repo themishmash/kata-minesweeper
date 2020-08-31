@@ -3,51 +3,55 @@ using System.Net;
 
 namespace KataMinesweeper
 {
-    internal class Program
+    internal static class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Minesweeper!");
-            Console.WriteLine("Please enter the difficulty level:");
-            var difficultyLevel = Console.ReadLine();
-            var board = new Board(int.Parse(difficultyLevel));
-            var consoleInputOutput = new ConsoleInputOutput();
-            var player = new Player(consoleInputOutput);
-            var mineGenerator = new MineGenerator(board);
-            var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
-            minesweeper.PlayGame();
-            
+            processUserOptions();
+        }
+
+        private static void processUserOptions()
+        {
             while (true)
             {
-                if (minesweeper.GameStatus == GameStatus.Lost || minesweeper.GameStatus == GameStatus.Won)
-                {
-                    Console.WriteLine("Would you like to play again?");
-                    Console.WriteLine("1. Yes please!");
-                    Console.WriteLine("2. No thanks.");
-                    var selection = int.Parse(Console.ReadLine());
-                    switch (selection)
-                    {
-                        case 1:
-                        {
-                            Console.WriteLine("Please enter the difficulty level:");
-                            difficultyLevel = Console.ReadLine();
-                            board = new Board(int.Parse(difficultyLevel));
-                            consoleInputOutput = new ConsoleInputOutput();
-                            player = new Player(consoleInputOutput);
-                            mineGenerator = new MineGenerator(board);
-                            minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
-                            minesweeper.PlayGame();
-                            break;
-                        }
-                        case 2:
-                        {
-                            Console.WriteLine("Goodbye!");
-                            break;
-                        }
-                    }
-                }
+                Console.WriteLine("Welcome to Minesweeper!");
+                Console.WriteLine("What would you like to do:");
+                Console.WriteLine("1. Play an easy Minesweeper game");
+                Console.WriteLine("2. Customise my Minesweeper game");
+                Console.WriteLine("3. Exit");
+                var userInput = Console.ReadLine();
+
+                var userOption = int.Parse(userInput);
                 
+                if (userOption == 1)
+                {
+                    var board = new Board(3);
+                    var consoleInputOutput = new ConsoleInputOutput();
+                    var player = new Player(consoleInputOutput);
+                    var mineGenerator = new MineGenerator(board);
+                    var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
+                    minesweeper.PlayGame();
+                }
+            
+                else if (userOption == 2)
+                {
+                    Console.WriteLine("Please enter the difficulty level:");
+                    var difficultyLevel = Console.ReadLine();
+                    var board = new Board(int.Parse(difficultyLevel));
+                    var consoleInputOutput = new ConsoleInputOutput();
+                    var player = new Player(consoleInputOutput);
+                    var mineGenerator = new MineGenerator(board);
+                    var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
+                    minesweeper.PlayGame();
+                }
+            
+                else if (userOption == 3)
+                {
+                    Console.WriteLine("Goodbye!");
+                    break;
+                }
             }
+
         }
     }
 }

@@ -44,8 +44,11 @@ namespace KataMinesweeper
                 var matchingMine =_mines.FirstOrDefault(mine => mine.XCoordinate == coordinate.XCoordinate && mine
                         .YCoordinate ==
                     coordinate.YCoordinate);
+                
+                //this checks for player coord in mines list and any new ones being generated
                 var matchingPlayerCoordinate = _mines.FirstOrDefault(mine => mine.XCoordinate == playerCoordinate
-                     .XCoordinate && mine.YCoordinate == playerCoordinate.YCoordinate);
+                     .XCoordinate && mine.YCoordinate == playerCoordinate.YCoordinate || coordinate.XCoordinate == 
+                     playerCoordinate.XCoordinate && coordinate.YCoordinate == playerCoordinate.YCoordinate);
                 if (!_mines.Contains(matchingMine))
                 {
                     _mines.Add(coordinate);

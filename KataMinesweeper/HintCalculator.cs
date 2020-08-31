@@ -8,8 +8,8 @@ namespace KataMinesweeper
         {
             _board = board;
         }
-
-        public int Calculate(Coordinate coordinate) //ssquares in the boardgame
+        
+        public int Calculate(Coordinate coordinate) 
         {
             var squareToCheck = _board.GetSquare(coordinate);
             var count = 0;
@@ -17,7 +17,6 @@ namespace KataMinesweeper
             {
                 for (var yCoordinate = squareToCheck.YCoordinate - 1; yCoordinate <= squareToCheck.YCoordinate + 1; yCoordinate++)
                 {
-                
                     if (IsSquareToCheck(xCoordinate, yCoordinate, squareToCheck)) continue;
                     
                     if (IsOutOfBoundary(xCoordinate, yCoordinate)) continue;

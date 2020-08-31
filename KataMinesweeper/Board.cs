@@ -41,6 +41,5 @@ namespace KataMinesweeper
             var squares = _boardSquares.Cast<Square>().ToList();
             return squares.TrueForAll(s => !s.IsRevealed);
         }
-        
     }
 }

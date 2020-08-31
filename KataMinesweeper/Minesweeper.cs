@@ -24,10 +24,12 @@ namespace KataMinesweeper
 
         public void PlayGame()
         {
+            _iio.Output($"You play a turn by entering numbers in the format x,y. Note valid coordinates are between 0 and {_board.Size-1}.");
             _iio.Output(DisplayBlankBoard());
            while (true)
            {
-               _iio.Output(RevealAllMinesAndHints());
+               //for testing purposes
+               //_iio.Output(RevealAllMinesAndHints());
                
                 var coordinate = _player.PlayTurn();
                 if (_board.NoSquareRevealed())
@@ -35,10 +37,11 @@ namespace KataMinesweeper
                     _iMineGenerator.PlaceMinesToBoard(coordinate); 
                 }
                
+                //for testing purposes
                 _iio.Output(RevealAllMinesAndHints());
                 while (!MoveValidator.IsValidMove(coordinate, _board))
                 {
-                    _iio.Output("Please enter a valid move.");
+                    _iio.Output($"Please enter a valid move.");
                     coordinate = _player.PlayTurn();
                 }
                 
@@ -55,11 +58,13 @@ namespace KataMinesweeper
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
                     _iio.Output(DisplayBoard(coordinate)); 
+                    _iio.Output("You stepped on mine! You lose :(");
                     return;
                 }
 
                 if (!HasPlayerWon(coordinate)) continue;
                 GameStatus = GameStatus.Won;
+                _iio.Output("Congratulations! You win :)");
                 return;
            }
         }
@@ -160,6 +165,5 @@ namespace KataMinesweeper
             }
             return board;
         }
-
     }
 }

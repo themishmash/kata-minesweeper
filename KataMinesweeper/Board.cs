@@ -20,20 +20,20 @@ namespace KataMinesweeper
             {
                 for (var y = 0; y < Size; y++)
                 {
-                    _boardSquares[x,y] = new Square(x,y);
+                    _boardSquares[x,y] = new Square(new Coordinate(x,y));
                 }
             }
         }
         
         public Square GetSquare(Coordinate coordinate)
         {
-            return _boardSquares[coordinate.XCoordinate, coordinate.YCoordinate];
+            return _boardSquares[coordinate.X, coordinate.Y];
         }
 
         public bool IsSquareUnrevealed(Coordinate coordinate)
         {
             var squares = _boardSquares.Cast<Square>().ToList();
-            return squares.Any(s => s.XCoordinate == coordinate.XCoordinate && s.YCoordinate == coordinate.YCoordinate && s.IsRevealed == false);
+            return squares.Any(s => s.XCoordinate == coordinate.X && s.YCoordinate == coordinate.Y && s.IsRevealed == false);
         }
 
         public bool NoSquareRevealed()
@@ -41,5 +41,13 @@ namespace KataMinesweeper
             var squares = _boardSquares.Cast<Square>().ToList();
             return squares.TrueForAll(s => !s.IsRevealed);
         }
+        
+        //method getnumber of mines. return number or 
+        public int GetNumberOfMines()
+        {
+            var squares = _boardSquares.Cast<Square>().ToList();
+            return squares.Count(s => s.IsMine);
+        }
+        
     }
 }

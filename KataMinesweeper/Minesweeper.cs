@@ -10,7 +10,7 @@ namespace KataMinesweeper
         private readonly IInputOutput _iio;
         private readonly HintCalculator _hintCalculator;
         private readonly IMineGenerator _iMineGenerator;
-        private static int _hintRevealedCount;
+        private int _hintRevealedCount;
         
         public Minesweeper(Board board, Player player, IInputOutput iio, IMineGenerator iMineGenerator)
         {
@@ -38,7 +38,7 @@ namespace KataMinesweeper
                 }
                
                 //for testing purposes
-                _iio.Output(RevealAllMinesAndHints());
+               _iio.Output(RevealAllMinesAndHints());
                 while (!MoveValidator.IsValidMove(coordinate, _board))
                 {
                     _iio.Output($"Please enter a valid move.");
@@ -49,22 +49,26 @@ namespace KataMinesweeper
                 if (!square.IsMine)
                 {
                     square.IsRevealed = true;
-                    square.Hint = _hintCalculator.Calculate(coordinate);
+                    square.Hint = _hintCalculator.Calculate(coordinate); //don't need this
                     GameStatus = GameStatus.Playing;
+                    _iio.Output("Here's the current board:");
                     _iio.Output(DisplayBoard(coordinate)); 
                 }
+                //else if for the messages. one of display board. 
+                //don't need multiple returns or continues;
                 if (square.IsMine)
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
+                    _iio.Output("You stepped on a mine! You lose :(");
                     _iio.Output(DisplayBoard(coordinate)); 
-                    _iio.Output("You stepped on mine! You lose :(");
                     return;
                 }
 
-                if (!HasPlayerWon(coordinate)) continue;
-                GameStatus = GameStatus.Won;
+                if (!HasPlayerWon(coordinate)) continue; //get rid of continue
+                GameStatus = GameStatus.Won; //last thing
                 _iio.Output("Congratulations! You win :)");
+                _iio.Output(DisplayBoard(coordinate)); 
                 return;
            }
         }
@@ -139,7 +143,7 @@ namespace KataMinesweeper
             {
                 _hintRevealedCount++;
             }
-            return _hintRevealedCount == _board.Size*_board.Size-_board.Size;
+            return _hintRevealedCount == _board.Size*_board.Size-_board.GetNumberOfMines(); //_board.getminesnumber 
         }
         
         //using this for testing purposes

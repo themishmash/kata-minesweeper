@@ -14,8 +14,8 @@ namespace KataMinesweeper.Tests
             //act
             var coordinate = playerX.PlayTurn();
             //assert
-            Assert.Equal(1, coordinate.XCoordinate);
-            Assert.Equal(1, coordinate.YCoordinate);
+            Assert.Equal(1, coordinate.X);
+            Assert.Equal(1, coordinate.Y);
         }
         
     }

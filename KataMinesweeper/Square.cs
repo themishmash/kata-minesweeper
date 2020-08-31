@@ -2,21 +2,21 @@ namespace KataMinesweeper
 {
     public class Square
     {
-        public int XCoordinate { get; }
-        public int YCoordinate { get; }
-        public int Hint { get; set; } 
+        public int XCoordinate => Coordinate.X;
+        public int YCoordinate => Coordinate.Y;
+        public int Hint { get; set; }
         public bool IsMine { get; set; } 
-        public bool IsRevealed { get; set; }
-        public bool IsFlagged { get; set; }
+        public bool IsRevealed { get; set; }  //immutable
+        private Coordinate Coordinate { get; }
         
-        public Square(int xCoordinate, int yCoordinate)
+        public Square(Coordinate coordinate)
         {
-            XCoordinate = xCoordinate;
-            YCoordinate = yCoordinate;
+            Coordinate = coordinate;
             Hint = 0;
             IsMine = false; 
             IsRevealed = false;
-            IsFlagged = false;
         }
+        
+        //only tink nknow about x and y - is player and when coordinate created 
     }
 }

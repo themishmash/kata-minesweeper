@@ -2,13 +2,13 @@ namespace KataMinesweeper
 {
     public class Coordinate
     {
-        public int XCoordinate { get; }
-        public int YCoordinate { get; }
+        public int X { get; }
+        public int Y { get; }
 
-        public Coordinate(int xCoordinate, int yCoordinate) 
+        public Coordinate(int x, int y) 
         {
-            XCoordinate = xCoordinate;
-            YCoordinate = yCoordinate;
+            X = x;
+            Y = y;
         }
     }
 }

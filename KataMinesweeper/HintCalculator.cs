@@ -13,6 +13,7 @@ namespace KataMinesweeper
         {
             var squareToCheck = _board.GetSquare(coordinate);
             var count = 0;
+            //squareToCheck.XCoordinate - 1
             for (var xCoordinate = squareToCheck.XCoordinate - 1; xCoordinate <= squareToCheck.XCoordinate + 1; xCoordinate++)
             {
                 for (var yCoordinate = squareToCheck.YCoordinate - 1; yCoordinate <= squareToCheck.YCoordinate + 1; yCoordinate++)

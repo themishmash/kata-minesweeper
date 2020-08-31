@@ -4,7 +4,7 @@ namespace KataMinesweeper
     {
         public static bool IsValidMove(Coordinate coordinate, Board board)
         {
-            return board.IsSquareUnrevealed(coordinate) && IsNumberWithinBoundary(coordinate.XCoordinate, coordinate.YCoordinate, 
+            return board.IsSquareUnrevealed(coordinate) && IsNumberWithinBoundary(coordinate.X, coordinate.Y, 
             board);
         }
 

@@ -12,9 +12,9 @@ namespace KataMinesweeper
 
         private static void processUserOptions()
         {
+            Console.WriteLine("Welcome to Minesweeper!");
             while (true)
             {
-                Console.WriteLine("Welcome to Minesweeper!");
                 Console.WriteLine("What would you like to do:");
                 Console.WriteLine("1. Play an easy Minesweeper game");
                 Console.WriteLine("2. Customise my Minesweeper game");

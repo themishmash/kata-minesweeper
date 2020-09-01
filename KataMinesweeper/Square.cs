@@ -12,7 +12,5 @@ namespace KataMinesweeper
             IsMine = false; 
             IsRevealed = false;
         }
-        
-        //only think know about x and y - is player and when coordinate created 
     }
 }

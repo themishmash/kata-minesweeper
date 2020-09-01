@@ -82,7 +82,7 @@ namespace KataMinesweeper
             return board;
         }
         
-        private string DisplayBoard(bool isMine)  
+        public string DisplayBoard(bool isMine)  
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)

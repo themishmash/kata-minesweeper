@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -19,8 +18,7 @@ namespace KataMinesweeper.Tests
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
             minesweeper.PlayGame();
              
-           //Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 ");
-           
+           Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 \n", minesweeper.DisplayBoard(true));
         }
 
         [Fact]
@@ -33,7 +31,7 @@ namespace KataMinesweeper.Tests
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
             minesweeper.PlayGame();
             
-           // Assert.Equal(" .  .  .  . \n .  3  .  . \n .  .  .  . \n .  .  .  . \n",board.DisplayBoard());
+           Assert.Equal(" .  .  .  . \n .  3  .  . \n .  .  .  . \n .  .  .  . \n", minesweeper.DisplayBoard(false));
         }
         
         

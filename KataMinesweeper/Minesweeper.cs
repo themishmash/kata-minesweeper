@@ -28,8 +28,6 @@ namespace KataMinesweeper
             _iio.Output(DisplayBlankBoard());
            while (true)
            {
-               //for testing purposes
-               //_iio.Output(RevealAllMinesAndHints());
                var coordinate = _player.PlayTurn();
                 if (_board.NoSquareRevealed())
                 {
@@ -49,7 +47,7 @@ namespace KataMinesweeper
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Playing;
-                    _iio.Output("Current play:"); //should print out board. here as revealed
+                    _iio.Output("Current play:"); 
                     _iio.Output(DisplayBoard(false));
                 }
 

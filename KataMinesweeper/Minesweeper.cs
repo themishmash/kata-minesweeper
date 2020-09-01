@@ -66,7 +66,6 @@ namespace KataMinesweeper
                     _iio.Output("Congratulations! You win :)");
                     break;
                 }
-                
                 _iio.Output(DisplayBoard(coordinate));
            }
         }

@@ -6,5 +6,7 @@ namespace KataMinesweeper
     {
         void PlaceMinesToBoard(Coordinate coordinate);
         IEnumerable<Coordinate> GenerateMines(Coordinate coordinate);
+        // void PlaceMinesToBoard();
+        // IEnumerable<Coordinate> GenerateMines();
     }
 }

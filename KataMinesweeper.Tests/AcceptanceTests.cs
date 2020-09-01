@@ -5,8 +5,10 @@ namespace KataMinesweeper.Tests
 {
     public class AcceptanceTests
     {
-        [Fact]
         
+        //write acceptance tests to assert on output
+        
+        [Fact]
         public void Making_A_Move_Will_Reveal_Mines_And_Hints()
         {
             var board = new Board(4);
@@ -21,6 +23,7 @@ namespace KataMinesweeper.Tests
             // Assert.Equal(0, move.YCoordinate);
             //Assert.Equal(GameStatus.Lost, minesweeper.GameStatus);
            // Assert.Equal(" *  2  0  0 \n *  3  0  0 \n *  3  0  0 \n *  2  0  0 ",board.DisplayBoard());
+           
            
         }
 

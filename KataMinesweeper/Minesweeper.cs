@@ -49,24 +49,23 @@ namespace KataMinesweeper
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Playing;
-                    _iio.Output("Current play:");
+                    _iio.Output("Current play:"); //should print out board. here as revealed
                 }
-
+                _iio.Output(DisplayBoard(coordinate));
+                
+                if (HasPlayerWon(coordinate))
+                {
+                    GameStatus = GameStatus.Won;
+                    _iio.Output("Congratulations! You win :)");
+                    return;
+                }
                 if (square.IsMine)
                 {
                     square.IsRevealed = true;
                     GameStatus = GameStatus.Lost;
                     _iio.Output("You stepped on a mine! You lose :(");
-                    break;
+                    return;
                 }
-
-                if (HasPlayerWon(coordinate))
-                {
-                    GameStatus = GameStatus.Won;
-                    _iio.Output("Congratulations! You win :)");
-                    break;
-                }
-                _iio.Output(DisplayBoard(coordinate));
            }
         }
         
@@ -124,9 +123,11 @@ namespace KataMinesweeper
         private static string DisplayHintAndMines(Square square, string board, int hint)
         {
             if (square.IsMine)
+            {
                 board += " * ";
-            if (!square.IsMine)
-                board += " " + hint + " ";
+                return board;
+            }
+            board += " " + hint + " ";
             return board;
         }
 
@@ -145,6 +146,8 @@ namespace KataMinesweeper
         }
         
         //using this for testing purposes
+        //take boolean in - if true keeps unrevealed squares hidden
+        //each square knows if revealed or not
         private string RevealAllMinesAndHints()  
         {
             var board = "";

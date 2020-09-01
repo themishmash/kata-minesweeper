@@ -13,12 +13,11 @@ namespace KataMinesweeper
         {
             var squareToCheck = _board.GetSquare(coordinate);
             var count = 0;
-            //squareToCheck.XCoordinate - 1
-            for (var xCoordinate = squareToCheck.XCoordinate - 1; xCoordinate <= squareToCheck.XCoordinate + 1; xCoordinate++)
+            for (var xCoordinate = squareToCheck.Coordinate.X - 1; xCoordinate <= squareToCheck.Coordinate.X + 1; xCoordinate++)
             {
-                for (var yCoordinate = squareToCheck.YCoordinate - 1; yCoordinate <= squareToCheck.YCoordinate + 1; yCoordinate++)
+                for (var yCoordinate = squareToCheck.Coordinate.Y - 1; yCoordinate <= squareToCheck.Coordinate.Y + 1; yCoordinate++)
                 {
-                    if (IsSquareToCheck(xCoordinate, yCoordinate, squareToCheck)) continue;
+                    if (IsCurrentSquare(xCoordinate, yCoordinate, squareToCheck)) continue;
                     
                     if (IsOutOfBoundary(xCoordinate, yCoordinate)) continue;
                     
@@ -32,9 +31,9 @@ namespace KataMinesweeper
             return count;
         }
         
-        private static bool IsSquareToCheck(int xCoordinate, int yCoordinate, Square squareToCheck)
+        private static bool IsCurrentSquare(int xCoordinate, int yCoordinate, Square squareToCheck)
         {
-            return xCoordinate == squareToCheck.XCoordinate && yCoordinate == squareToCheck.YCoordinate;
+            return xCoordinate == squareToCheck.Coordinate.X && yCoordinate == squareToCheck.Coordinate.Y;
         }
         
         private bool IsOutOfBoundary(int xCoordinate, int yCoordinate)

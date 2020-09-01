@@ -18,8 +18,8 @@ namespace KataMinesweeper.Tests
             var board = new Board(4);
             var square = board.GetSquare(new Coordinate(1,1));
             
-           Assert.Equal(1, square.XCoordinate);
-           Assert.Equal(1, square.YCoordinate);
+           Assert.Equal(1, square.Coordinate.X);
+           Assert.Equal(1, square.Coordinate.Y);
         }
 
         

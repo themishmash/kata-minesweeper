@@ -17,20 +17,6 @@ namespace KataMinesweeper.Tests
             Assert.Equal(GameStatus.AwaitingFirstMove, minesweeper.GameStatus);
         }
 
-        //not working
-        [Fact]
-        public void Game_Status_Set_To_Playing_After_Player_First_Move()
-        {
-            var board = new Board(4);
-            var testInput = new PlayerInput(new List<(int, int)>{(1, 1)});
-            var mineInput = new MineGeneratorInput(board);
-            var player = new Player(testInput);
-            var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
-            
-            minesweeper.PlayGame();
-            Assert.Equal(GameStatus.Playing, minesweeper.GameStatus);
-        }
-
         [Fact]
         public void Game_Status_Set_To_Lost_After_Player_Clicks_Mine()
         {

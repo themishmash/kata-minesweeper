@@ -30,7 +30,7 @@ namespace KataMinesweeper.Tests
 
         public void Output(string message)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

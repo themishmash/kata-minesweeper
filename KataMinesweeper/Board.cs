@@ -4,7 +4,7 @@ namespace KataMinesweeper
 {
     public class Board
     {
-        public readonly int Size;
+        public int Size { get; private set; }
         private Square[,] _boardSquares; 
         
         public Board(int size)

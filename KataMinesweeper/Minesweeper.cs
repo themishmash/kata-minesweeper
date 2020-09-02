@@ -82,7 +82,7 @@ namespace KataMinesweeper
             return board;
         }
         
-        public string DisplayBoard(bool isMine)  
+       public string DisplayBoard(bool revealAll)  
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)
@@ -92,12 +92,13 @@ namespace KataMinesweeper
                     var square = _board.GetSquare(new Coordinate(i,j));
                     
                     var coordinate = new Coordinate(i, j);
+                    
                     var hint = _hintCalculator.Calculate(coordinate);
-
-                    if (isMine)
+       
+                    if (revealAll)
                         board = DisplayHintAndMines(square, board, hint);
-
-                    if (!isMine)
+       
+                    if (!revealAll)
                         board = DisplayHint(square, board, hint);
                 }
                 board += Environment.NewLine;
@@ -105,33 +106,9 @@ namespace KataMinesweeper
             return board;
         }
 
-        // private string DisplayBoard(Coordinate playerCoordinate)
-        // {
-        //     var board = "";
-        //     for (var i = 0; i < _board.Size; i++)
-        //     {
-        //         for (var j = 0; j < _board.Size; j++)
-        //         {
-        //             var coordinate = new Coordinate(i, j);
-        //             var square = _board.GetSquare(coordinate);
-        //             var hint = _hintCalculator.Calculate(coordinate);
-        //             var playerSquare = _board.GetSquare(playerCoordinate);
-        //             
-        //             board = !playerSquare.IsMine ? DisplayHint(square, board, hint) : DisplayHintAndMines(square, board,
-        //              hint);
-        //             if (_board.NoSquareRevealed())
-        //             {
-        //                 board += " . ";
-        //             }
-        //         }
-        //         board += Environment.NewLine;
-        //     }
-        //     return board;
-        // }
-        
-        private static string DisplayHint(Square square, string board, int hint)
+       private static string DisplayHint(Square square, string board, int hint)
         {
-            if (square.IsRevealed == false)
+            if (!square.IsRevealed)
             {
                 board += " . ";
             }
@@ -170,7 +147,7 @@ namespace KataMinesweeper
         //using this for testing purposes
         //take boolean in - if true keeps unrevealed squares hidden
         //each square knows if revealed or not
-        private string RevealAllMinesAndHints()  
+        public string RevealAllMinesAndHints()  
         {
             var board = "";
             for (var i = 0; i < _board.Size; i++)

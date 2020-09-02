@@ -21,7 +21,10 @@ namespace KataMinesweeper
                 Console.WriteLine("3. Exit");
                 var userInput = Console.ReadLine();
 
-                var userOption = int.Parse(userInput);
+                if (!int.TryParse(userInput, out var userOption))
+                {
+                    Console.WriteLine("Please enter a number");
+                }
                 
                 if (userOption == 1)
                 {

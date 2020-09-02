@@ -35,7 +35,7 @@ namespace KataMinesweeper
                 }
                
                 //for testing purposes
-               _iio.Output(RevealAllMinesAndHints());
+               //_iio.Output(RevealAllMinesAndHints());
                 while (!MoveValidator.IsValidMove(coordinate, _board))
                 {
                     _iio.Output($"Please enter a valid move.");

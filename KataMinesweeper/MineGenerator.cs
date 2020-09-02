@@ -26,18 +26,12 @@ namespace KataMinesweeper
             var randomCoordinate = random.Next(0, _board.Size);
             return randomCoordinate;
         }
-        
-        //board could take in mine gen.
-        //mine gen could gen mines during constructor of board. when new square created, whether mine or not set at that stage. 
-        //ismine is read only. 
-        
+
         public void PlaceMinesToBoard(Coordinate playerCoordinate)
         {
             foreach (var coordinate in GenerateMines(playerCoordinate))
             {
                _board.GetSquare(coordinate).IsMine = true;
-               // var mine = _board.GetSquare(coordinate);
-               // mine = new Square(new Coordinate(coordinate.X, coordinate.Y)) {IsMine = true};
             }
         }
         
@@ -46,7 +40,7 @@ namespace KataMinesweeper
             _mines = new List<Coordinate>();
             while (_mines.Count != _board.Size)
             {
-                var coordinate = new Coordinate(GetXCoordinate(), GetYCoordinate());//get square instead var ssquare = new square (new coord (getxcoord,)) {ismine=}
+                var coordinate = new Coordinate(GetXCoordinate(), GetYCoordinate());
                 var matchingMine =_mines.FirstOrDefault(mine => mine.X == coordinate.X && mine
                         .Y ==
                     coordinate.Y);

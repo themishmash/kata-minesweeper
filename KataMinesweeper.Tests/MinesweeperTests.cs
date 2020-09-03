@@ -10,7 +10,7 @@ namespace KataMinesweeper.Tests
         {
             var board = new Board(4);
             var testInput = new PlayerInput(new List<(int, int)>{(1, 1)});
-            var mineInput = new MineGeneratorInput(board);
+            var mineInput = new MineGeneratorInput();
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
 
@@ -22,7 +22,7 @@ namespace KataMinesweeper.Tests
         {
             var board = new Board(4);
             var testInput = new PlayerInput(new List<(int, int)>{(1,1), (1, 0)});
-            var mineInput = new MineGeneratorInput(board);
+            var mineInput = new MineGeneratorInput();
             var player = new Player(testInput);
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
             
@@ -37,15 +37,12 @@ namespace KataMinesweeper.Tests
             var board = new Board(4);
             var testInput = new PlayerInput(new List<(int, int)>{(0,1),(0,2),(0,3),(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)});
             var player = new Player(testInput);
-            var mineInput = new MineGeneratorInput(board);
+            var mineInput = new MineGeneratorInput();
             var minesweeper = new Minesweeper(board, player, new NullInputOutput(), mineInput);
             
             minesweeper.PlayGame();
             
             Assert.Equal(GameStatus.Won, minesweeper.GameStatus);
         }
-        
-        //test for board only generates mines after first move. 
-        
     }
 }

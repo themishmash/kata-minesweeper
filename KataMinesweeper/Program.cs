@@ -16,9 +16,8 @@ namespace KataMinesweeper
             while (true)
             {
                 Console.WriteLine("What would you like to do:");
-                Console.WriteLine("1. Play an easy Minesweeper game");
-                Console.WriteLine("2. Customise my Minesweeper game");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("1. Play the Minesweeper game");
+                Console.WriteLine("2. Exit");
                 var userInput = Console.ReadLine();
 
                 if (!int.TryParse(userInput, out var userOption))
@@ -28,27 +27,17 @@ namespace KataMinesweeper
                 
                 if (userOption == 1)
                 {
-                    var board = new Board(3);
-                    var consoleInputOutput = new ConsoleInputOutput();
-                    var player = new Player(consoleInputOutput);
-                    var mineGenerator = new MineGenerator(board);
-                    var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
-                    minesweeper.PlayGame();
-                }
-            
-                else if (userOption == 2)
-                {
                     Console.WriteLine("Please enter the difficulty level:");
                     var difficultyLevel = Console.ReadLine();
                     var board = new Board(int.Parse(difficultyLevel));
                     var consoleInputOutput = new ConsoleInputOutput();
                     var player = new Player(consoleInputOutput);
-                    var mineGenerator = new MineGenerator(board);
+                    var mineGenerator = new MineGenerator();
                     var minesweeper = new Minesweeper(board, player, consoleInputOutput, mineGenerator);
                     minesweeper.PlayGame();
                 }
             
-                else if (userOption == 3)
+                else if (userOption == 2)
                 {
                     Console.WriteLine("Goodbye!");
                     break;

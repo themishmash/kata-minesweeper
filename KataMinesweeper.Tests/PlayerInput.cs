@@ -5,7 +5,6 @@ namespace KataMinesweeper.Tests
 {
     public class PlayerInput : IInputOutput
     {
-       
         private readonly List<(int, int)> _turns = new List<(int, int)>();
 
         public PlayerInput(IEnumerable<(int, int)> turns)

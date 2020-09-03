@@ -29,9 +29,11 @@ namespace KataMinesweeper
            while (true)
            {
                var coordinate = _player.PlayTurn();
+              
                 if (_board.NoSquareRevealed())
                 {
-                    _iMineGenerator.PlaceMinesToBoard(coordinate); 
+                    _iMineGenerator.SetFirstMove(coordinate);
+                    _iMineGenerator.PlaceMinesToBoard(_board); 
                 }
                
                 //for testing purposes

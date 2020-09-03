@@ -5,13 +5,9 @@ namespace KataMinesweeper.Tests
     public class MineGeneratorInput:IMineGenerator
     {
         private List<Coordinate> _mines;
-        private readonly Board _board;
-        
-        public MineGeneratorInput(Board board)
-        {
-            _board = board;
-        }
-        public IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
+
+
+        private IEnumerable<Coordinate> GenerateMines()
         {
             _mines = new List<Coordinate>
             {
@@ -23,12 +19,17 @@ namespace KataMinesweeper.Tests
             return _mines;
         }
         
-        public void PlaceMinesToBoard(Coordinate playerCoordinate)
+        public void PlaceMinesToBoard(Board board)
         {
-            foreach (var coordinate in GenerateMines(playerCoordinate))
+            foreach (var coordinate in GenerateMines())
             {
-                _board.GetSquare(coordinate).IsMine = true;
+                board.GetSquare(coordinate).IsMine = true;
             }
+        }
+
+        public void SetFirstMove(Coordinate coordinate)
+        {
+            
         }
     }
 }

@@ -6,13 +6,23 @@ namespace KataMinesweeper
 {
     public class MineGenerator: IMineGenerator
     {
-        private readonly Board _board;
+        private Board _board;
         private List<Coordinate> _mines;
-        public MineGenerator(Board board)
+        private Coordinate _playerFirstMove;
+
+        public void PlaceMinesToBoard(Board board)
         {
             _board = board;
+            foreach (var coordinate in GenerateMines(_playerFirstMove))
+            {
+                _board.GetSquare(coordinate).IsMine = true;
+            }
         }
 
+        public void SetFirstMove(Coordinate coordinate)
+        {
+            _playerFirstMove = coordinate;
+        }
         private int GetXCoordinate()
         {
            var random = new Random();
@@ -27,15 +37,7 @@ namespace KataMinesweeper
             return randomCoordinate;
         }
 
-        public void PlaceMinesToBoard(Coordinate playerCoordinate)
-        {
-            foreach (var coordinate in GenerateMines(playerCoordinate))
-            {
-               _board.GetSquare(coordinate).IsMine = true;
-            }
-        }
-        
-        public IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
+        private IEnumerable<Coordinate> GenerateMines(Coordinate playerCoordinate)
         {
             _mines = new List<Coordinate>();
             while (_mines.Count != _board.Size)
